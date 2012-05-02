@@ -12,8 +12,10 @@ body#login > form#login{
 	left: 50%;
 	background-color: #333;
 	color: #FFF;
+	border-top: 1px solid #333;
 	border-bottom: 1px solid #555;
 	border-radius: 3px;
+	background-image: url("../img/texture.png");
 }
 body#login > form#login img#logo{
 	margin: 0 auto;
