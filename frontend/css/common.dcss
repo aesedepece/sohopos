@@ -13,6 +13,7 @@ body{
 	min-width: 990px;
 	background-color: black;
 	color: white;
+	background-image: url("../img/texture.png");
 }
 .l{
 	float: left;
@@ -29,6 +30,7 @@ header#topbar{
 	background-color: #222;
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #1A1A1A;
+	background-image: url("../img/texture.png");
 }
 header#topbar a{
 	color: #FFF;
