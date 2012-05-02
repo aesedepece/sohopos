@@ -1,6 +1,6 @@
 <?php	
 session_start();
-$db = mysql_connect("server.home","librepos","revolucion");
+$db = mysql_connect("server","librepos","password");
 mysql_select_db("librepos", $db);
 mysql_set_charset('utf8', $db);
 
