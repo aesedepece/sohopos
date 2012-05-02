@@ -1,0 +1,3 @@
+RewriteEngine On 
+RewriteRule ^([a-zA-Zá-źÁ-Ź0-9]+)$ index.php?a=$1 [L,QSA]
+RewriteRule ^([a-zA-Zá-źÁ-Ź0-9]+)\/([a-zA-Zá-źÁ-Ź0-9]+)$ index.php?a=$1&b=$2 [L,QSA]
