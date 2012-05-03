@@ -2,7 +2,7 @@
 
 function search($db){
 	$q = mysql_query("
-	SELECT id, name 
+	SELECT id, name , parent_id
 	FROM categories
 	WHERE ".$_POST['searchby']." = '".$_POST['value']."'
 	", $db);

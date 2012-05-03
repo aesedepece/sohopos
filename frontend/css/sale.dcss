@@ -10,13 +10,13 @@ body#sale > section{
 }
 body#sale > section#left{
 	left: 0;
-	width: 35%;
+	width: 39%;
 	border-right: 1px solid #999;
 	background-color: #FFF;
 }
 body#sale > section#right{
 	right: 0;
-	left: 35%;
+	left: 39%;
 	background-color: #B3B3B3;
 	border-left: 1px solid #E6E6E6;
 	margin-left: 1px;
@@ -159,6 +159,11 @@ body#sale > section#right > section#products > header{
 	border-bottom: 1px solid #E6E6E6;
 	font-size: 0.9em;
 	background-image: url("../img/texture.png");
+	height: 15px;
+}
+body#sale > section#right > section#products > header a{
+	float: left;
+	margin-right: 10px;
 }
 body#sale > section#right > section#products > header img{
 	margin-left: 10px;
@@ -225,6 +230,27 @@ body#sale > section#right > section#tickets ul{
 	border-bottom: 1px solid #1A1A1A;
 	border-radius: 2px;
 	background-image: url("../img/texture.png");
+}
+body#sale > section#right > section#tickets ul li{
+	list-style-type: none;
+	background-color: #555;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #222;
+	border-radius: 2px;
+	background-image: url("../img/texture.png");
+	cursor: pointer;
+}
+body#sale > section#right > section#tickets ul li.current{
+	background-color: #680;
+}
+body#sale > section#right > section#tickets ul li a.caption{
+	display: block;
+	padding: 10px;
+}
+body#sale > section#right > section#tickets ul li a.caption span.date{
+	margin-left: 10px;
+	font-size: 0.7em;
+	color: #DDD;
 }
 header#topbar div#context div#ticketinfo{
 	height: 30px;

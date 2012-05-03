@@ -16,7 +16,6 @@ $_SESSION['s'] = $s;
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(dirname(__FILE__)));
 
-$url = $_GET['url'];
 $noiface = false;
 
 if((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')||$noiface){

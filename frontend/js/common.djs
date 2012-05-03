@@ -5,7 +5,7 @@ var mod = "<?php echo $_SESSION['mod']; ?>";
 
 function clockize(clock){
 	var cT = new Date();
-	clock.html((cT.getHours() < 10 ? '0' : '') + cT.getHours() + ":" + (cT.getMinutes() < 10 ? '0' : '') + cT.getMinutes()); //>
+	clock.html((cT.getHours() < 10 ? '0' : '') + cT.getHours() + ":" + (cT.getMinutes() < 10 ? '0' : '') + cT.getMinutes());
 	setTimeout(function(){clockize(clock)}, 60000);
 }
 

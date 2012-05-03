@@ -8,6 +8,7 @@ var selItem;
 var ib = 0;
 var editing = false;
 var curCategory = 1;
+var tool = "products";
 
 function Item(data){
 	this.id = data.id;
@@ -19,35 +20,38 @@ function Item(data){
 	this.total = this.subprice * this.qty + this.ttax;
 }
 
-function Sale(){
+function Sale(saledata){
+	if(saledata==undefined||typeof(saledata)==undefined){
+		saledata = JSON.parse($.ajax({
+			type: "GET",       
+			url: "<?php echo$s['r']; ?>sales/saleNew",
+			dataType: "json",
+			context: document.body,
+			global: false,
+			async:false,
+			success: function(data) {
+				return data;
+			}
+		}).responseText);
+	}
+	this.id = saledata.id;
+	this.startdate = saledata.startdate;
 	this.items = new Array();
 	this.subtotal = 0;
 	this.ttax = 0;
 	this.total = 0;
-	var saledata = JSON.parse($.ajax({
-		type: "GET",       
-		url: "sales/saleNew",
-		dataType: "json",
-		context: document.body,
-		global: false,
-		async:false,
-		success: function(data) {
-			return data;
-		}
-	}).responseText);
-	this.id = saledata.id;
-	this.startdate = saledata.startdate;
+
 }
 
 function newSale(){
 	sales[sales.length] = new Sale();
-	curSale = sales.length;
+	curSale = sales.length-1;
 }
 
 function saleTouch(id){
 	var saledata = JSON.parse($.ajax({
 		type: "POST",       
-		url: "sales/saleTouch",
+		url: "<?php echo$s['r']; ?>sales/saleTouch",
 		data: { id: sales[id].id },
 		dataType: "json",
 		context: document.body,
@@ -57,7 +61,9 @@ function saleTouch(id){
 			return data;
 		}
 	}).responseText);
+	console.log(saledata);
 	sales[id].startdate = saledata.startdate;
+	sales[id].id = saledata.id;
 }
 
 function newSaleIfNoSale(){
@@ -75,9 +81,37 @@ function savedSalesLoad(){
 	if(localStorage.getItem("sales")!=undefined&&localStorage.getItem("curSale")!=undefined){
 		sales = JSON.parse(localStorage.getItem("sales"));
 		curSale = localStorage.getItem("curSale");
-		selItem = sales[curSale].items.length-1;
+		selItem = sales[curSale||0].items.length-1;
 	}
-
+	var dbSales = JSON.parse($.ajax({
+		type: "POST",       
+		url: "<?php echo$s['r']; ?>sales/getFromDB",
+		dataType: "json",
+		context: document.body,
+		global: false,
+		async:false,
+		success: function(data) {
+			return data;
+		}
+	}).responseText);
+	if(dbSales){
+		$.each(dbSales, function(){
+			var is = false;
+			for(i=0;i<sales.length;i++){
+				if(sales[i].id==this.id){
+					is=true;
+					break;
+				}
+			}
+			var saledata = new Array();
+			saledata.id = this.id;
+			saledata.startdate = this.startdate;
+			if(!is){
+				sales[sales.length] = new Sale(saledata);
+				//curSale = sales.length-1;
+			}
+		});
+	}
 }
 
 function salesSave(){
@@ -108,10 +142,10 @@ function saleShow(sale){
 }
 
 function categoryShow(category){
-	prevCategory = curCategory;
+	catData = categorySearch("id", category)[0];
 	categories = categorySearch("parent_id", category);
 	products = productSearch("category_id", category);
-	grid = $("section#right  > section#products > ul#grid");
+	grid = $("section#right>section#products>ul#grid");
 	grid.empty();
 	if(categories)$.each(categories, function(){
 		grid.append("<li id=\"" + this.id + "\" class=\"category\" onclick=\"categoryShow(" + this.id + ");\"><img src=\"<?php echo$s['r']; ?>img/categories/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><h1>" + this.name + "</h1></li>");
@@ -119,6 +153,13 @@ function categoryShow(category){
 	if(products)$.each(products, function(){
 		grid.append("<li id=\"" + this.id + "\" class=\"product\" onclick=\"itemAdd(productSearch('id', " + this.id + "));saleShow(curSale);\"><img src=\"<?php echo$s['r']; ?>img/products/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><span class=\"price\">" + (this.pricesell*(1+this.tax/100)).toFixed(2) + "€</span><h1>" + this.name + "</h1></li>");
 	});
+	if(category>1){
+		route = $("section#right>section#products>header div.route#cat"+catData.parent_id);
+		route.empty();
+		route.append("<a onclick=\"categoryShow(" + catData.id + ");\">" + catData.name + "<img src=\"<?php echo$s['r']; ?>img/icons/arrow.png\" alt=\">\" /></a><div class=\"route\" id=\"cat" + catData.id + "\"></div>");
+	}else{
+		$("section#right>section#products>header>div.route#cat1").empty();
+	}
 	curCategory = category;
 }
 
@@ -166,7 +207,7 @@ function itemDel(n){
 function productSearch(searchby, value){
 	var proddata = $.ajax({
 		type: "POST",       
-		url: "products/search",
+		url: "<?php echo$s['r']; ?>products/search",
 		data: { searchby: searchby, value: value },
 		dataType: "json",
 		context: document.body,
@@ -182,7 +223,7 @@ function productSearch(searchby, value){
 function categorySearch(searchby, value){
 	var catdata = $.ajax({
 		type: "POST",       
-		url: "categories/search",
+		url: "<?php echo$s['r']; ?>categories/search",
 		data: { searchby: searchby, value: value },
 		dataType: "json",
 		context: document.body,
@@ -196,11 +237,28 @@ function categorySearch(searchby, value){
 }
 
 function ticketChange(ticket){
-	if (typeof ticket == "undefined") {
-		window.location = "<?php echo$s['r']; ?>sales/tickets";
+	 if(typeof ticket == "undefined") {
+		if(tool=="tickets")window.location = "<?php echo$s['r']; ?>sales";
+		else window.location = "<?php echo$s['r']; ?>sales/tickets";
 	 }else{
-	 	
+	 	curSale = ticket;
+	 	salesSave();
+	 	saleShow(curSale);
+	 	ticketHighlight();
 	 }
+}
+
+function ticketHighlight(){
+	 $("body>section#right>section#tickets>ul>li").removeClass("current");
+	 $("body>section#right>section#tickets>ul>li:eq("+curSale+")").addClass("current");
+}
+
+function ticketList(){
+	ul = $("body>section#right>section#tickets>ul");
+	$.each(sales, function(i){
+		ul.append("<li><a onclick=\"ticketChange(" + i + ")\" class=\"caption\">TICKET Nº" + this.id + "<span class=\"date\">" + this.startdate + "</span></a><a class=\"close\"></a></li>");
+	});
+	ticketHighlight()
 }
 
 function pad(object){
@@ -295,6 +353,7 @@ $(document).ready(function(){
 				break;
 			case 13: //RETURN
 				e.preventDefault();
+
 				if(editing){
 					editing.blur();
 				}else{

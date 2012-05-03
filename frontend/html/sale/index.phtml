@@ -43,7 +43,7 @@ include("html/common/header.phtml");
 </section>
 <section id="right">
 	<?php
-		switch($_GET['b']){
+		if(isset($_GET['b'])){switch($_GET['b']){
 			case "payment":
 				break;
 			case "receipt":
@@ -54,7 +54,7 @@ include("html/common/header.phtml");
 			default:
 				$tool = "products";
 				break;
-		}
+		}}else $tool = "products";
 		echo"<section id=\"".$tool."\">";
 		include("html/".$mod."/".$tool.".phtml");
 		echo"</section>";
