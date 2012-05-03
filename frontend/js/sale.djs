@@ -108,7 +108,7 @@ function savedSalesLoad(){
 			saledata.startdate = this.startdate;
 			if(!is){
 				sales[sales.length] = new Sale(saledata);
-				//curSale = sales.length-1;
+				curSale = sales.length-1;
 			}
 		});
 	}

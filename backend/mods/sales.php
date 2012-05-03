@@ -34,7 +34,8 @@ function getFromDB($db){
 	$sales = null;
 	$q = @mysql_query("	SELECT * 
 				FROM sales 
-				WHERE enddate IS NULL");
+				WHERE enddate IS NULL
+				AND seller_id = '".$_SESSION['uid']."'");
 	if(mysql_num_rows($q)){
 		$i = 0;
 		while($sale = mysql_fetch_assoc($q)){
