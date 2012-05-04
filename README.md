@@ -10,7 +10,4 @@ THIS SOFTWARE IS UNDER STRONG DEVELOPMENT BUT STILL NOT USABLE OR EVEN USEFUL AS
  4. Voilà!
 
 ## TODO:
- 1. General: Receipt printing and drawer opening (backend)
- 2. Sales interface: Receipt printing and drawer opening (frontend), Client selection, Discounts, Returns
- 3. Management: Sellers, Clients, Discounts, Purchases, Informs (Sales, Stock)
- 4. System: Settings, License, Credits
+<a href="https://github.com/aesedepece/librepos/wiki/TODO" >TODO wiki page</a>
