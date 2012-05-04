@@ -259,6 +259,7 @@ body#sale > section#right > section#tickets ul li a.close{
 	background-color: #333;
 	border-top: 1px solid #4D4D4D;
 	border-bottom: 1px solid #1A1A1A;
+	background-image: url("../img/texture.png");
 }
 header#topbar div#context div#ticketinfo{
 	height: 30px;
