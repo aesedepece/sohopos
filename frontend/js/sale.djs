@@ -257,7 +257,11 @@ function ticketList(){
 	ul = $("body>section#right>section#tickets>ul");
 	ul.children("li:not(#ticketNew)").remove();
 	$.each(sales, function(i){
-		ul.append("<li><a onclick=\"ticketChange(" + i + ")\" class=\"caption\">TICKET Nº" + this.id + "<span class=\"date\">" + this.startdate + "</span></a><a class=\"close\"><img src=\"<?php echo$s['r']; ?>img/icons/delete.png\" alt=\"X\" /></a></li>");
+		ul.append("<li><a onclick=\"ticketChange(" + i + ")\" class=\"caption\">TICKET Nº" + this.id + "<span class=\"date\">" + this.startdate + "</span></a></li>");
+		if(this.items.length)ul.children("li:not(#ticketNew):eq("+i+")").append("<a class=\"close\"><img src=\"<?php echo$s['r']; ?>img/icons/delete.png\" alt=\"X\" /></a>");
+		ul.children("li:not(#ticketNew)>a.close").click(function(){
+			alert("foo");
+		});
 	});
 	ticketHighlight()
 }
@@ -415,6 +419,7 @@ $(document).ready(function(){
 				break;
 			default:
 				if(e.which >= 48 && e.which <=57)codify(e.which-48);
+				if(e.which >= 96 && e.which <=105)codify(e.which-96);
 				break;
 		}
 	});
