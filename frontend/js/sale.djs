@@ -48,6 +48,14 @@ function saleNew(){
 	curSale = sales.length-1;
 }
 
+function saleEnd(){
+
+}
+
+function saleDel(){
+
+}
+
 function saleTouch(id){
 	var saledata = JSON.parse($.ajax({
 		type: "POST",       
