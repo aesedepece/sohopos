@@ -10,22 +10,7 @@ THIS SOFTWARE IS UNDER STRONG DEVELOPMENT BUT STILL NOT USABLE OR EVEN USEFUL AS
  4. Voilà!
 
 ## TODO:
- General
-  Receipt printing and drawer opening (backend)
- Sales interface
-  Receipt printing and drawer opening (frontend)
-  Client selection
-  Discounts
-  Returns
- Management
-  Sellers
-  Clients
-  Discounts
-  Purchases
-  Informs
-   Sales
-   Stock
- System
-  Settings
-  License
-  Credits
+ 1. General: Receipt printing and drawer opening (backend)
+ 2. Sales interface: Receipt printing and drawer opening (frontend), Client selection, Discounts, Returns
+ 3. Management: Sellers, Clients, Discounts, Purchases, Informs (Sales, Stock)
+ 4. System: Settings, License, Credits
