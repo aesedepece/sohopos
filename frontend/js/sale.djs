@@ -52,8 +52,16 @@ function saleEnd(){
 
 }
 
-function saleDel(){
-
+function saleDel(sale){
+	console.log(sales[sale]);
+	if(typeof(sale)!=undefined && sales[sale].items.length){
+		sales.splice(sale, 1);
+		if(sale>0)curSale = sale-1;
+		salesSave();
+		saleNewIfNoSale();
+		saleShow(curSale);
+	}
+	ticketList();
 }
 
 function saleTouch(id){
@@ -183,23 +191,25 @@ function itemIsInSale(item){
 }
 
 function itemAdd(data){
-	if(data){
-		data = data[0];
-		s = itemIsInSale(data.id);
-		if(s>-1){
-			item = sales[curSale].items[s];
-			item.qty++;
-			item.ttax = item.subprice * item.qty * item.tax / 100;
-			item.total = item.subprice * item.qty + item.ttax;
-			itemSel(s);
-		}else{
-			l = sales[curSale].items.length;
-			sales[curSale].items[l] = new Item(data);
-			itemSel(l);
-		}
-		articles = $("section#articles")[0];
-		setTimeout("articles.scrollTop = articles.scrollHeight", 1);
-	}else alert("¡No se ha encontrado ningún producto!");
+	if(tool=="products"){
+		if(data){
+			data = data[0];
+			s = itemIsInSale(data.id);
+			if(s>-1){
+				item = sales[curSale].items[s];
+				item.qty++;
+				item.ttax = item.subprice * item.qty * item.tax / 100;
+				item.total = item.subprice * item.qty + item.ttax;
+				itemSel(s);
+			}else{
+				l = sales[curSale].items.length;
+				sales[curSale].items[l] = new Item(data);
+				itemSel(l);
+			}
+			articles = $("section#articles")[0];
+			setTimeout("articles.scrollTop = articles.scrollHeight", 1);
+		}else alert("¡No se ha encontrado ningún producto!");
+	}else alert("Sólo se pueden añadir artículos desde la ventana productos");
 }
 
 function itemSel(n){
@@ -266,10 +276,7 @@ function ticketList(){
 	ul.children("li:not(#ticketNew)").remove();
 	$.each(sales, function(i){
 		ul.append("<li><a onclick=\"ticketChange(" + i + ")\" class=\"caption\">TICKET Nº" + this.id + "<span class=\"date\">" + this.startdate + "</span></a></li>");
-		if(this.items.length)ul.children("li:not(#ticketNew):eq("+i+")").append("<a class=\"close\"><img src=\"<?php echo$s['r']; ?>img/icons/delete.png\" alt=\"X\" /></a>");
-		ul.children("li:not(#ticketNew)>a.close").click(function(){
-			alert("foo");
-		});
+		if(this.items.length)ul.children("li:not(#ticketNew):eq("+i+")").append("<a onclick=\"saleDel(" + i + ");\" class=\"close\"><img src=\"<?php echo$s['r']; ?>img/icons/delete.png\" alt=\"X\" /></a>");
 	});
 	ticketHighlight()
 }
