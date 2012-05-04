@@ -1,5 +1,9 @@
+<?php
+session_start();
+$s = $_SESSION['s'];
+?>
 <form id="login" method="POST" action="#">
-	<img src="img/biglogo.png" alt="librePOS" id="logo" />
+	<img src="<?php echo$s['r']; ?>img/biglogo.png" alt="librePOS" id="logo" />
 	<hr />
 	<input type="text" name="user" id="user" placeholder="Nombre de usuario" /><br />
 	<input type="password" name="pass" id="pass" placeholder="Contraseña" /><br />

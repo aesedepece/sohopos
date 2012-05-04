@@ -43,7 +43,7 @@ function Sale(saledata){
 
 }
 
-function newSale(){
+function saleNew(){
 	sales[sales.length] = new Sale();
 	curSale = sales.length-1;
 }
@@ -66,10 +66,10 @@ function saleTouch(id){
 	sales[id].id = saledata.id;
 }
 
-function newSaleIfNoSale(){
+function saleNewIfNoSale(){
 	if(!sales)sales = new Array();
 	if(sales.length==0){
-		newSale();
+		saleNew();
 		curSale = 0;
 	}else if(sales[curSale] && sales[curSale].items.length==0){
 		saleTouch(curSale);
@@ -250,13 +250,14 @@ function ticketChange(ticket){
 
 function ticketHighlight(){
 	 $("body>section#right>section#tickets>ul>li").removeClass("current");
-	 $("body>section#right>section#tickets>ul>li:eq("+curSale+")").addClass("current");
+	 $("body>section#right>section#tickets>ul>li:not(#ticketNew):eq("+curSale+")").addClass("current");
 }
 
 function ticketList(){
 	ul = $("body>section#right>section#tickets>ul");
+	ul.children("li:not(#ticketNew)").remove();
 	$.each(sales, function(i){
-		ul.append("<li><a onclick=\"ticketChange(" + i + ")\" class=\"caption\">TICKET Nº" + this.id + "<span class=\"date\">" + this.startdate + "</span></a><a class=\"close\"></a></li>");
+		ul.append("<li><a onclick=\"ticketChange(" + i + ")\" class=\"caption\">TICKET Nº" + this.id + "<span class=\"date\">" + this.startdate + "</span></a><a class=\"close\"><img src=\"<?php echo$s['r']; ?>img/icons/delete.png\" alt=\"X\" /></a></li>");
 	});
 	ticketHighlight()
 }
@@ -340,7 +341,7 @@ function bindEvents(){
 
 $(document).ready(function(){
 	savedSalesLoad();
-	newSaleIfNoSale();
+	saleNewIfNoSale();
 	saleShow(curSale);
 	$(document).keydown(function(e){
 		i = sales[curSale].items[selItem];

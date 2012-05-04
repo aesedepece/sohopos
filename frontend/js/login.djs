@@ -1,12 +1,13 @@
 <?php header('Content-type: text/javascript'); 
 session_start();
+$s = $_SESSION['s'];
 ?>
 $(document).ready(function(){
 	$("form#login").submit(function(event){
 		event.preventDefault();
 		user = $("input#user").val();
 		pass = $("input#pass").val();
-		$.post('session/login',
+		$.post('<?php echo$s['r']; ?>session/login',
 			{ user: user, pass: pass },
 			function(userdata){
 		 		if(userdata=="false"){
