@@ -66,6 +66,7 @@ function saleDel(sale){
 	if(typeof(sale)!=undefined && sales[sale].items.length){
 		sales.splice(sale, 1);
 		if(sale>0)curSale = sale-1;
+		else curSale = 0;
 		salesSave();
 		saleNewIfNoSale();
 		saleShow(curSale);
