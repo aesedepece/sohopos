@@ -117,6 +117,7 @@ body#sale > section#left > section#sumpad > section#pad > table#nums td{
 	text-align: center;
 	border-top: 1px solid #666;
 	border-left: 1px solid #666;
+	background-image: url("../img/texture.png");
 	cursor: pointer;
 }
 body#sale > section#left > section#sumpad > section#pad > table#nums tr:first-child td{
@@ -127,9 +128,12 @@ body#sale > section#left > section#sumpad > section#pad > table#nums tr td:first
 }
 body#sale > section#left > section#sumpad > section#pad > table#nums td:hover{
 	background-color: #555;
+	border-radius: 2px;
+	background-image: url("../img/texture.png");
 }
 body#sale > section#left > section#sumpad > section#pad > table#nums td:active{
 	background-color: #222;
+	background-image: url("../img/texture.png");
 	padding: 8px 0 2px 0;
 }
 body#sale > section#left > section#sumpad > section#pad ul{
