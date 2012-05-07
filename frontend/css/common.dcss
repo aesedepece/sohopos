@@ -1,4 +1,12 @@
 <?php header('Content-type: text/css'); ?>
+@font-face{
+	font-family: Roboto;
+	src: url('fonts/Roboto-Regular.ttf');
+}
+@font-face{
+	font-family: Roboto;
+	src: url('fonts/Roboto-Regular.eot');
+}
 *{
 	border: none;
 	margin: 0;
