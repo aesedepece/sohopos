@@ -44,8 +44,17 @@ function Sale(saledata){
 }
 
 function saleNew(){
-	sales[sales.length] = new Sale();
-	curSale = sales.length-1;
+	var empty = firstEmptySaleGet();
+	if(empty>=0){
+		saleTouch(empty);
+		salesSave();
+		ticketChange(empty);
+		ticketList();
+		saleShow(empty);
+	}else{
+		sales[sales.length] = new Sale();
+		curSale = sales.length-1;
+	}
 }
 
 function saleEnd(){
@@ -80,6 +89,12 @@ function saleTouch(id){
 	console.log(saledata);
 	sales[id].startdate = saledata.startdate;
 	sales[id].id = saledata.id;
+}
+
+function firstEmptySaleGet(){
+	for(i=0;i<sales.length;i++){
+		if(sales[i].items.length==0)return i;
+	}
 }
 
 function saleNewIfNoSale(){
