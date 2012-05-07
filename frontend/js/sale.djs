@@ -40,7 +40,7 @@ function Sale(saledata){
 	this.subtotal = 0;
 	this.ttax = 0;
 	this.total = 0;
-
+	this.client = 0;
 }
 
 function saleNew(){
@@ -295,6 +295,15 @@ function ticketList(){
 		if(this.items.length)ul.children("li:not(#ticketNew):eq("+i+")").append("<a onclick=\"saleDel(" + i + ");\" class=\"close\"><img src=\"<?php echo$s['r']; ?>img/icons/delete.png\" alt=\"X\" /></a>");
 	});
 	ticketHighlight()
+}
+
+function clientChange(client){
+	 if(typeof client == "undefined") {
+		if(tool=="clients")window.location = "<?php echo$s['r']; ?>sales";
+		else window.location = "<?php echo$s['r']; ?>sales/clients";
+	 }else{
+	 	sales[curSale].client = client;
+	 }
 }
 
 function pad(object){
