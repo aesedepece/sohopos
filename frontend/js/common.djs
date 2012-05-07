@@ -1,5 +1,6 @@
 <?php header('Content-type: text/javascript'); 
 session_start();
+$s = $_SESSION['s'];
 ?>
 var mod = "<?php echo $_SESSION['mod']; ?>";
 
@@ -12,7 +13,7 @@ function clockize(clock){
 function logOut(e){
 	e.preventDefault();
 	if(confirm("¿Estás seguro de querer salir?")){
-		$.post('session/logout', function(){
+		$.post("<?php echo$s['r'] ?>session/logout", function(){
  			location.reload();
 		});
 	}

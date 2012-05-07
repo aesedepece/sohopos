@@ -1,6 +1,6 @@
 <?php
 
-//session_destroy();
+print_r($_SESSION);
 
 if(isset($_SESSION['uid']))$id = $_SESSION['uid'];
 

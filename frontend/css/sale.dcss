@@ -278,13 +278,13 @@ body#sale > section#right > section#clients{
 }
 body#sale > section#right > section#clients h1{
 	display: block;
-	margin: 0 auto;
-	font-size: 2em;
+	margin: 20px auto;
+	font-size: 1.5em;
+	text-align: center;
 }
-body#sale > section#right > section#clients section{
-	margin: 50px auto;
-	padding: 30px 60px 30px 30px;
-	width: 40%;
+body#sale > section#right > section#clients div{
+	margin: 0 auto;
+	padding: 30px;
 	background-color: #444;
 	text-align: center;
 	border-top: 1px solid #4D4D4D;

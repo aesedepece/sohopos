@@ -10,7 +10,7 @@ $(document).ready(function(){
 		$.post('<?php echo$s['r']; ?>session/login',
 			{ user: user, pass: pass },
 			function(userdata){
-		 		if(userdata=="false"){
+		 		if(userdata=="false"||typeof(userdata)==undefined){
 		 			$("#logerror").css('display', 'block');
 		 		}else{
 		 			mydata = jQuery.parseJSON(userdata);
