@@ -152,9 +152,11 @@ body#sale > section#left > section#sumpad > section#pad li{
 }
 body#sale > section#left > section#sumpad > section#pad li:hover{
 	background-color: #444;
+	background-image: url("../img/texture.png");
 }
 body#sale > section#left > section#sumpad > section#pad li:active{
 	background-color: #222;
+	background-image: url("../img/texture.png");
 }
 body#sale > section#right > section#products > header{
 	width: 100%;
