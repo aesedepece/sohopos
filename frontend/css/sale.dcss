@@ -276,13 +276,13 @@ body#sale > section#right > section#clients{
 	background-color: #333;
 	background-image: url("../img/texture.png");
 }
-body#sale > section#right > section#clients h1{
+body#sale > section#right > section#clients > h1{
 	display: block;
 	margin: 20px auto;
 	font-size: 1.5em;
 	text-align: center;
 }
-body#sale > section#right > section#clients div{
+body#sale > section#right > section#clients > div{
 	margin: 0 auto;
 	padding: 30px;
 	background-color: #444;
@@ -291,6 +291,48 @@ body#sale > section#right > section#clients div{
 	border-bottom: 1px solid #1A1A1A;
 	border-radius: 2px;
 	background-image: url("../img/texture.png");
+}
+body#sale > section#right > section#clients > div > section{
+	display: block;
+	float: left;
+	text-align: left;
+}
+body#sale > section#right > section#clients > div > section > h1{
+	margin-bottom: 15px;
+}
+body#sale > section#right > section#clients > div > section#clientsBrowser{
+	width: 60%;
+	border-right: 1px solid #666;
+}
+body#sale > section#right > section#clients > div > section#clientsBrowser input[type=text]{
+	width: 80%;
+	border: 4px solid;
+	-moz-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
+	-webkit-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
+	border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
+	color: #777;
+}
+body#sale > section#right > section#clients > div > section#clientsBrowser input[type=text]:focus{
+	-moz-border-image: url('../img/input-text-corners-selected.png') 4 4 4 4 repeat;
+	-webkit-border-image: url('../img/input-text-corners-selected.png') 4 4 4 4 repeat;
+	border-image: url('../img/input-text-corners-selected.png') 4 4 4 4 repeat;
+	color: #FFF;
+}
+body#sale > section#right > section#clients > div > section#clientsBrowser > ul{
+	margin-top: 15px;
+	list-style-type: none;
+}
+body#sale > section#right > section#clients > div > section#clientsBrowser > ul > li{
+	margin-bottom: -1px;
+	padding: 10px;
+	width: 80%;
+	background-color: #333;
+	background-image: url("../img/texture.png");
+	border: 1px solid #666;
+}
+body#sale > section#right > section#clients > div > section#topFive{
+	width: 30%;
+	margin-left: 20px;
 }
 header#topbar div#context div#ticketinfo{
 	height: 30px;

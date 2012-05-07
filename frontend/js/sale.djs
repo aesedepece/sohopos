@@ -306,6 +306,22 @@ function clientChange(client){
 	 }
 }
 
+function clientSearch(value){
+	var clientData = $.ajax({
+		type: "POST",       
+		url: "<?php echo$s['r']; ?>clients/search",
+		data: { value: value },
+		dataType: "json",
+		context: document.body,
+		global: false,
+		async:false,
+		success: function(data) {
+			return data;
+		}
+	}).responseText;
+	return JSON.parse(clientData);
+}
+
 function pad(object){
 	key = $(object).html();
 	if(key >= 0 && key <= 9){
@@ -340,7 +356,6 @@ function pad(object){
 
 function codify(i){
 	ib += i.toString();
-	//$("#clock").html(ib);
 }
 
 function bindEvents(){

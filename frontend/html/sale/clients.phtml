@@ -2,18 +2,36 @@
 ?>
 <script type="text/javascript">
 	$("document").ready(function(){
-		//clientsList();
 		tool = "clients";
+		$("body#sale > section#right > section#clients > div > section#clientsBrowser input[type=text]").keydown(function(e){
+			if(e.keyCode>=65&&e.keyCode<=90){
+				var clients = clientSearch($(this).val()+String.fromCharCode(e.keyCode));
+				var ul = $("body#sale > section#right > section#clients > div > section#clientsBrowser > ul");
+				if(clients){
+					console.log(clients);
+					ul.html("");
+					$.each(clients, function(i){
+						ul.append("<li id=\"" + this.id + "\">" + this.name + " " + this.surname + "</li>");
+					});
+				}else{
+					ul.html("No hay clientes con ese nombre o apellido");
+				}
+			}
+		});
 	});
 </script>
 <h1>Clientes</h1>
 <div>
 	<section id="clientsBrowser">
 		<h1>Buscador</h1>
+		<input type="text" name="browser" placeholder="Nombre o apellidos..."  />
+		<ul>
+		</ul>
 	</section>
 	<section id="topFive">
 		<h1>Clientes VIP</h1>
 		<ul>
 		</ul>
 	</section>
+	<hr class="cb"/>
 </div>

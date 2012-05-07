@@ -1,10 +1,11 @@
 <?php
 
 function search($db){
+	$clients = NULL;
 	$q = mysql_query("
-	SELECT id, name, surname, `default-discount_id`
+	SELECT *
 	FROM clients
-	WHERE `".$_POST['searchby']."` = '".$_POST['value']."'
+	WHERE CONCAT_WS( ' ', name, surname ) LIKE '%".$_POST['value']."%'
 	", $db);
 	if(mysql_num_rows($q)){
 		$i = 0;

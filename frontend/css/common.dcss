@@ -33,6 +33,9 @@ body{
 a{
 	cursor: pointer;
 }
+hr.cb{
+	clear: both;
+}
 header#topbar{
 	width: 100%;
 	height: 60px;
