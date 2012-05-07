@@ -267,6 +267,31 @@ body#sale > section#right > section#tickets ul li a.close{
 	border-bottom: 1px solid #1A1A1A;
 	background-image: url("../img/texture.png");
 }
+body#sale > section#right > section#clients{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #333;
+	background-image: url("../img/texture.png");
+}
+body#sale > section#right > section#clients h1{
+	display: block;
+	margin: 0 auto;
+	font-size: 2em;
+}
+body#sale > section#right > section#clients section{
+	margin: 50px auto;
+	padding: 30px 60px 30px 30px;
+	width: 40%;
+	background-color: #444;
+	text-align: center;
+	border-top: 1px solid #4D4D4D;
+	border-bottom: 1px solid #1A1A1A;
+	border-radius: 2px;
+	background-image: url("../img/texture.png");
+}
 header#topbar div#context div#ticketinfo{
 	height: 30px;
 	padding: 5px 10px;
