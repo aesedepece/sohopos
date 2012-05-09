@@ -150,6 +150,13 @@ body#sale > section#left > section#sumpad > section#pad li{
 	font-size: 0.9em;
 	cursor: pointer;
 }
+body#sale > section#left > section#sumpad > section#pad li span.label{
+	float: right;
+	margin-right: 5px;
+	padding: 0px 5px;
+	background-color: #680;
+	border-radius: 10px;
+}
 body#sale > section#left > section#sumpad > section#pad li:hover{
 	background-color: #444;
 	background-image: url("../img/texture.png");
@@ -301,7 +308,7 @@ body#sale > section#right > section#clients > div > section > h1{
 	margin-bottom: 15px;
 }
 body#sale > section#right > section#clients > div > section#clientsBrowser{
-	width: 60%;
+	width: 55%;
 	border-right: 1px solid #666;
 }
 body#sale > section#right > section#clients > div > section#clientsBrowser input[type=text]{
@@ -329,10 +336,24 @@ body#sale > section#right > section#clients > div > section#clientsBrowser > ul 
 	background-color: #333;
 	background-image: url("../img/texture.png");
 	border: 1px solid #666;
+	cursor: pointer;
 }
-body#sale > section#right > section#clients > div > section#topFive{
+body#sale > section#right > section#clients > div > section#topClients{
 	width: 30%;
 	margin-left: 20px;
+}
+body#sale > section#right > section#clients > div > section#topClients > ul{
+	margin-top: 15px;
+	list-style-type: none;
+}
+body#sale > section#right > section#clients > div > section#topClients > ul > li{
+	margin-bottom: -1px;
+	padding: 10px;
+	width: 100%;
+	background-color: #333;
+	background-image: url("../img/texture.png");
+	border: 1px solid #666;
+	cursor: pointer;
 }
 header#topbar div#context div#ticketinfo{
 	height: 30px;

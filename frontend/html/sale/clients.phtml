@@ -5,19 +5,35 @@
 		tool = "clients";
 		$("body#sale > section#right > section#clients > div > section#clientsBrowser input[type=text]").keydown(function(e){
 			if(e.keyCode>=65&&e.keyCode<=90){
-				var clients = clientSearch($(this).val()+String.fromCharCode(e.keyCode));
-				var ul = $("body#sale > section#right > section#clients > div > section#clientsBrowser > ul");
-				if(clients){
-					console.log(clients);
-					ul.html("");
-					$.each(clients, function(i){
-						ul.append("<li id=\"" + this.id + "\">" + this.name + " " + this.surname + "</li>");
-					});
-				}else{
-					ul.html("No hay clientes con ese nombre o apellido");
-				}
+				var string = $(this).val()+String.fromCharCode(e.keyCode);
+			}else if(e.keyCode==8){
+				e.preventDefault();
+				var string = $(this).val().substr(0, $(this).val().length-1);
+			}else{
+				var string = $(this).val();
+			}
+			var clients = clientSearch(string);
+			var ul = $("body#sale > section#right > section#clients > div > section#clientsBrowser > ul");
+			if(clients){
+				console.log(clients);
+				ul.html("");
+				$.each(clients, function(i){
+					ul.append("<li onclick=\"clientChange(" + this.id + ")\" id=\"" + this.id + "\">" + this.name + " " + this.surname + "</li>");
+				});
+			}else{
+				ul.html("No hay clientes con ese nombre o apellido");
 			}
 		});
+		var ul = $("body#sale > section#right > section#clients > div > section#topClients > ul");
+		var top = topClients(5);
+		if(top){
+			ul.html("");
+			$.each(top, function(){
+				ul.append("<li onclick=\"clientChange(" + this.id + ")\" id=\"" + this.id + "\">" + this.name + " " + this.surname + "</li>");
+			});
+		}else{
+			ul.html("Todavía no hay clientes registrados que hayan comprado");
+		}
 	});
 </script>
 <h1>Clientes</h1>
@@ -28,7 +44,7 @@
 		<ul>
 		</ul>
 	</section>
-	<section id="topFive">
+	<section id="topClients">
 		<h1>Clientes VIP</h1>
 		<ul>
 		</ul>

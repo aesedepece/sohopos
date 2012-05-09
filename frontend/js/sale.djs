@@ -169,6 +169,10 @@ function saleShow(sale){
 	$("section#sum > div#total > span.value").html(sales[sale].total.toFixed(2)+"€");
 	$("header#topbar > div#context > div#ticketinfo > span#ticketno").html(sales[sale].id);
 	$("header#topbar > div#context > div#ticketinfo > span#ticketdate").html(sales[sale].startdate);
+	if(sales[sale].client>0){
+		var clientData = clientGet(sales[sale].client)[0];
+		$("section#pad > ul > li#butclients > span.label").html(clientData.name).show();
+	}else $("section#pad > ul > li#butclients > span.label").html("").hide();
 	bindEvents();
 	salesSave();
 }
@@ -303,6 +307,8 @@ function clientChange(client){
 		else window.location = "<?php echo$s['r']; ?>sales/clients";
 	 }else{
 	 	sales[curSale].client = client;
+	 	salesSave();
+	 	clientChange();
 	 }
 }
 
@@ -311,6 +317,39 @@ function clientSearch(value){
 		type: "POST",       
 		url: "<?php echo$s['r']; ?>clients/search",
 		data: { value: value },
+		dataType: "json",
+		context: document.body,
+		global: false,
+		async:false,
+		success: function(data) {
+			return data;
+		}
+	}).responseText;
+	return JSON.parse(clientData);
+}
+
+function clientGet(id){
+	var clientData = $.ajax({
+		type: "POST",       
+		url: "<?php echo$s['r']; ?>clients/get",
+		data: { id: id },
+		dataType: "json",
+		context: document.body,
+		global: false,
+		async:false,
+		success: function(data) {
+			return data;
+		}
+	}).responseText;
+	return JSON.parse(clientData);
+}
+
+function topClients(qty){
+	if(typeof(qty)==undefined||qty<1)qty=5;
+	var clientData = $.ajax({
+		type: "POST",       
+		url: "<?php echo$s['r']; ?>clients/top",
+		data: { qty: qty },
 		dataType: "json",
 		context: document.body,
 		global: false,
@@ -406,14 +445,13 @@ $(document).ready(function(){
 		i = sales[curSale].items[selItem];
 		switch(e.keyCode){
 			case 8: //BASCKSPACE
-				if(!editing){
+				if(tool=="products"&&!editing){
 					e.preventDefault();
 					itemDel(selItem);
 				}
 				break;
 			case 13: //RETURN
 				e.preventDefault();
-
 				if(editing){
 					editing.blur();
 				}else{
