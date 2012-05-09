@@ -184,7 +184,7 @@ function categoryShow(category){
 	grid = $("section#right>section#products>ul#grid");
 	grid.empty();
 	if(categories)$.each(categories, function(){
-		grid.append("<li id=\"" + this.id + "\" class=\"category\" onclick=\"categoryShow(" + this.id + ");\"><img src=\"<?php echo$s['r']; ?>img/categories/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><h1>" + this.name + " " + this.make + "</h1></li>");
+		grid.append("<li id=\"" + this.id + "\" class=\"category\" onclick=\"categoryShow(" + this.id + ");\"><img src=\"<?php echo$s['r']; ?>img/categories/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><h1>" + this.name + "</h1></li>");
 	});
 	if(products)$.each(products, function(){
 		grid.append("<li id=\"" + this.id + "\" class=\"product\" onclick=\"itemAdd(productSearch('id', " + this.id + "));saleShow(curSale);\"><img src=\"<?php echo$s['r']; ?>img/products/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><span class=\"price\">" + (this.pricesell*(1+this.tax/100)).toFixed(2) + "€</span><h1>" + this.name + " " + this.make + "</h1></li>");
