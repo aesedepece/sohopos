@@ -7,7 +7,7 @@
 			if(e.keyCode>=65&&e.keyCode<=90){
 				var string = $(this).val()+String.fromCharCode(e.keyCode);
 			}else if(e.keyCode==8){
-				e.preventDefault();
+				//e.preventDefault();
 				var string = $(this).val().substr(0, $(this).val().length-1);
 			}else{
 				var string = $(this).val();
