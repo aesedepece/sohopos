@@ -12,7 +12,7 @@ var tool = "products";
 
 function Item(data){
 	this.id = data.id;
-	this.title = data.name;
+	this.title = data.name + " " + data.make;
 	this.subprice = data.pricesell;
 	this.qty = 1;
 	this.tax = data.tax;
@@ -184,10 +184,10 @@ function categoryShow(category){
 	grid = $("section#right>section#products>ul#grid");
 	grid.empty();
 	if(categories)$.each(categories, function(){
-		grid.append("<li id=\"" + this.id + "\" class=\"category\" onclick=\"categoryShow(" + this.id + ");\"><img src=\"<?php echo$s['r']; ?>img/categories/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><h1>" + this.name + "</h1></li>");
+		grid.append("<li id=\"" + this.id + "\" class=\"category\" onclick=\"categoryShow(" + this.id + ");\"><img src=\"<?php echo$s['r']; ?>img/categories/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><h1>" + this.name + " " + this.make + "</h1></li>");
 	});
 	if(products)$.each(products, function(){
-		grid.append("<li id=\"" + this.id + "\" class=\"product\" onclick=\"itemAdd(productSearch('id', " + this.id + "));saleShow(curSale);\"><img src=\"<?php echo$s['r']; ?>img/products/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><span class=\"price\">" + (this.pricesell*(1+this.tax/100)).toFixed(2) + "€</span><h1>" + this.name + "</h1></li>");
+		grid.append("<li id=\"" + this.id + "\" class=\"product\" onclick=\"itemAdd(productSearch('id', " + this.id + "));saleShow(curSale);\"><img src=\"<?php echo$s['r']; ?>img/products/" + this.id + ".jpg\" alt=\"NO PHOTO\" /><span class=\"price\">" + (this.pricesell*(1+this.tax/100)).toFixed(2) + "€</span><h1>" + this.name + " " + this.make + "</h1></li>");
 	});
 	if(category>1){
 		route = $("section#right>section#products>header div.route#cat"+catData.parent_id);

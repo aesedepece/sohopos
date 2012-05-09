@@ -2,13 +2,15 @@
 
 function search($db){
 	$q = mysql_query("
-	SELECT `products`.`id`,
-	`products`.`name`,
-	`products`.`pricesell`,
-	`taxes`.`rate` AS `tax`
-	FROM `products` INNER JOIN `taxes`
-	WHERE `products`.`tax_id` = `taxes`.`id`
-	AND `products`.`".$_POST['searchby']."` = '".$_POST['value']."'
+	SELECT products.id, 
+	products.name, 
+	products.pricesell,
+	taxes.rate AS tax, 
+	makes.name AS make 
+	FROM products, taxes, makes 
+	WHERE products.tax_id = taxes.id 
+	AND products.make_id = makes.id 
+	AND products.".$_POST['searchby']." = '".$_POST['value']."'
 	", $db);
 	if(mysql_num_rows($q)){
 		$i = 0;
