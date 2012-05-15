@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 02, 2012 at 10:18 PM
+-- Generation Time: May 15, 2012 at 03:56 PM
 -- Server version: 5.1.62
 -- PHP Version: 5.3.6-13ubuntu3.6
 
@@ -32,7 +32,22 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `parent_id` int(11) DEFAULT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `parent` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clients`
+--
+
+CREATE TABLE IF NOT EXISTS `clients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(12) NOT NULL,
+  `surname` varchar(24) NOT NULL,
+  `default-discount_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `default-discount_id` (`default-discount_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -57,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `discounts` (
   `caption` varchar(24) NOT NULL,
   `value` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -97,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `makes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=271 ;
 
 -- --------------------------------------------------------
 
@@ -110,18 +125,18 @@ CREATE TABLE IF NOT EXISTS `products` (
   `reference` varchar(32) NOT NULL,
   `code` varchar(32) NOT NULL,
   `name` tinytext NOT NULL,
-  `make_id` int(11) NOT NULL,
+  `make_id` int(11) DEFAULT NULL,
   `pricebuy` double NOT NULL,
   `pricesell` double NOT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `tax_id` int(11) NOT NULL,
+  `tax_id` int(11) DEFAULT NULL,
   `description` text,
   `scales` tinyint(1) NOT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `make` (`make_id`),
   KEY `category` (`category_id`),
   KEY `tax` (`tax_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1958 ;
 
 -- --------------------------------------------------------
 
@@ -148,9 +163,11 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `startdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `enddate` timestamp NULL DEFAULT NULL,
   `seller_id` int(11) NOT NULL,
+  `client_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `seller_id` (`seller_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  KEY `seller_id` (`seller_id`),
+  KEY `client_id` (`client_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -217,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `taxes` (
   `name` varchar(255) NOT NULL,
   `rate` double NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -234,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `units` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `distributor_id` (`distributor_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -250,6 +267,47 @@ CREATE TABLE IF NOT EXISTS `unit_sales` (
   KEY `sale_id` (`sale_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_stock`
+--
+CREATE TABLE IF NOT EXISTS `v_stock` (
+`product_id` int(11)
+,`reference` varchar(32)
+,`code` varchar(32)
+,`name` tinytext
+,`amount` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_topClients`
+--
+CREATE TABLE IF NOT EXISTS `v_topClients` (
+`numsales` bigint(21)
+,`id` int(11)
+,`name` varchar(12)
+,`surname` varchar(24)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_stock`
+--
+DROP TABLE IF EXISTS `v_stock`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`librepos`@`%` SQL SECURITY DEFINER VIEW `v_stock` AS select `units`.`product_id` AS `product_id`,`products`.`reference` AS `reference`,`products`.`code` AS `code`,`products`.`name` AS `name`,count(0) AS `amount` from (`products` join `units`) group by `products`.`id` having (`products`.`id` = `units`.`product_id`);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_topClients`
+--
+DROP TABLE IF EXISTS `v_topClients`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`librepos`@`%` SQL SECURITY DEFINER VIEW `v_topClients` AS select count(0) AS `numsales`,`sales`.`client_id` AS `id`,`clients`.`name` AS `name`,`clients`.`surname` AS `surname` from (`clients` join `sales`) group by `clients`.`id` having (`clients`.`id` = `sales`.`client_id`) order by count(0) desc;
+
 --
 -- Constraints for dumped tables
 --
@@ -259,6 +317,12 @@ CREATE TABLE IF NOT EXISTS `unit_sales` (
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `clients`
+--
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`default-discount_id`) REFERENCES `discounts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `distributors_products`
@@ -299,8 +363,8 @@ ALTER TABLE `sales_discounts`
 -- Constraints for table `units`
 --
 ALTER TABLE `units`
-  ADD CONSTRAINT `units_ibfk_2` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`),
-  ADD CONSTRAINT `units_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `units_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `units_ibfk_2` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`);
 
 --
 -- Constraints for table `unit_sales`
