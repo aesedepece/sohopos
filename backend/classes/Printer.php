@@ -47,8 +47,7 @@ class Printer{
 			"/<\/strong>/" => array(27, 71, 0),
 			"/<left>/" => array(27, 97, 0),
 			"/<center>/" => array(27, 97, 1),
-			"/<right>/" => array(27, 97, 2),
-			"/<barcode (\d+)>/" => array(29, 107, 1)
+			"/<right>/" => array(27, 97, 2)
 		);
 		foreach($codeMap as $pattern => $code){
 			$seq = "";
