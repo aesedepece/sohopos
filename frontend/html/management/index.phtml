@@ -13,7 +13,7 @@ include("html/common/header.phtml");
 	<li id="makes"><a href="<? echo$s['r']; ?>management/makes">Marcas</a></li>
 	<li id="categories"><a href="<? echo$s['r']; ?>management/categories">Categorías</a></li>
 	<li id="discounts"><a href="<? echo$s['r']; ?>management/discounts">Descuentos</a></li>
-	<li id="purchase"><a href="<? echo$s['r']; ?>management/purchase">Compras</a></li>
+	<li id="purchases"><a href="<? echo$s['r']; ?>management/purchases">Compras</a></li>
 </ul>
 <ul id="informs">
 	<span>Informes</span>
@@ -23,5 +23,17 @@ include("html/common/header.phtml");
 </ul>
 </nav>
 <div id="panel">
-	Elije un menú de la izquierda
+	<?php
+		if(isset($_GET['b'])){switch($_GET['b']){
+			case "purchases":
+				$tool = "purchases";
+				break;
+			default:
+				$tool = "default";
+				break;
+		}}else $tool = "default";
+		echo"<section id=\"".$tool."\">";
+		include("html/".$mod."/".$tool.".phtml");
+		echo"</section>";
+	?>
 </div>
