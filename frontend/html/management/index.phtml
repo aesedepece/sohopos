@@ -4,22 +4,22 @@ include("html/common/header.phtml");
 <nav id="management">
 <ul id="humanres">
 	<span>Recursos humanos</span>
-	<li id="clients">Clientes</li>
-	<li id="distributors">Distribuidores</li>
+	<li id="clients"><a href="<? echo$s['r']; ?>management/clients">Clientes</a></li>
+	<li id="distributors"><a href="<? echo$s['r']; ?>management/distributors">Distribuidores</a></li>
 </ul>
 <ul id="store">
 	<span>Almacén</span>
-	<li id="products">Productos</li>
-	<li id="makes">Marcas</li>
-	<li id="categories">Categorías</li>
-	<li id="discounts">Descuentos</li>
-	<li id="purchase">Compras</li>
+	<li id="products"><a href="<? echo$s['r']; ?>management/products">Productos</a></li>
+	<li id="makes"><a href="<? echo$s['r']; ?>management/makes">Marcas</a></li>
+	<li id="categories"><a href="<? echo$s['r']; ?>management/categories">Categorías</a></li>
+	<li id="discounts"><a href="<? echo$s['r']; ?>management/discounts">Descuentos</a></li>
+	<li id="purchase"><a href="<? echo$s['r']; ?>management/purchase">Compras</a></li>
 </ul>
 <ul id="informs">
 	<span>Informes</span>
-	<li id="i_sales">Ventas</li>
-	<li id="i_stock">Existencias</li>
-	<li id="i_clients">Clientes</li>
+	<li id="i_sales"><a href="<? echo$s['r']; ?>management/isales">Ventas</a></li>
+	<li id="i_stock"><a href="<? echo$s['r']; ?>management/istock">Existencias</a></li>
+	<li id="i_clients"><a href="<? echo$s['r']; ?>management/iclients">Clientes</a></li>
 </ul>
 </nav>
 <div id="panel">

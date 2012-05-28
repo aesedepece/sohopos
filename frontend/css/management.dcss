@@ -27,10 +27,13 @@ body#management > nav > ul > span{
 	color: #AAA;
 	font-weight: bold;
 }
-body#management > nav > ul > li{
+body#management > nav > ul > li > a{
+	display: block;
 	padding: 14px 15px 10px 15px;
 	border-top: 1px solid #666;
 	cursor: pointer;
+	color: #FFF;
+	text-decoration: none;
 }
 body#management > nav > ul > li:hover{
 	background-color:  rgba(255, 255, 255, 0.1);
@@ -45,7 +48,7 @@ body#management > div#panel{
 	float: left;
 	width: 60%;
 	margin: 40px 0 0 0;
-	padding: 30px;
+	padding: 40px;
 	border: 2px solid #111;
 	outline: 1px solid #666;
 	background-color: #333;
