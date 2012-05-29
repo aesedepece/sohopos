@@ -1,0 +1,55 @@
+<script type="text/javascript">
+	function Movement(){
+	}
+	var move = new Movement();
+	
+	function showProd(product){
+		$("body#management > div#panel > form >  figure#product > figcaption").html(product.name);
+		$("body#management > div#panel > form >  figure#product > img").attr("src","<?php echo$s['r'] ?>img/products/" + product.id + ".jpg");
+		$("body#management > div#panel > form >  figure#product").show();
+	}
+	
+	$(document).ready(function(){
+		var now = new Date();
+		$("body#management > div#panel > form > fieldset > input#date").val(now);
+		$("body#management > div#panel > form > fieldset > select").change(function(){
+			sessionStorage.setItem("management_" + this.id, this.value);
+		});
+		$("body#management > div#panel > form > fieldset > select").val(sessionStorage.getItem("management_type"));
+		$("body#management > div#panel > form > fieldset > input#prod_code").keypress(function(e){
+			if(e.keyCode == 13){
+				e.preventDefault();
+				res = productSearch('code', $(this).val())[0];
+				if(res){
+					move.product = res;
+					showProd(move.product);
+				}else alert("No se encontró tal producto");
+			}
+		});
+	});
+</script>
+<h1>Movimiento de existencias</h1>
+<form action="">
+	<figure id="product">
+		<figcaption></figcaption>
+		<img src="" alt="" />
+	</figure>
+	<fieldset>
+		<label for="date">Fecha</label>
+		<input type="date" name="date" id="date" required />
+	</fieldset>
+	<fieldset>
+		<label for="type">Razón</label>
+		<select name="type" id="type" required />
+			<option value="in_buy">← Compra</option>
+			<option value="in_back">← Devolución</option>
+			<option value="out_sell">Venta →</option>
+			<option value="out_back">Devolución →</option>
+			<option value="out_broken">Rotura →</option>
+		</select>
+	</fieldset>
+	<fieldset>
+		<label for="code">Producto</label>
+		<input type="number" name="code" id="prod_code" required autofocus />
+	</fieldset>
+</form>

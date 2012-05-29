@@ -369,7 +369,7 @@ function pad(object){
 		i = sales[curSale].items[selItem];
 		switch(key){
 			case "=":
-				itemAdd(productSearch('id', ib));
+				itemAdd(productSearch('code', ib));
 				ib = 0;
 				saleShow(curSale);
 				break;
@@ -455,7 +455,7 @@ $(document).ready(function(){
 				if(editing){
 					editing.blur();
 				}else{
-					itemAdd(productSearch('id', ib));
+					itemAdd(productSearch('code', ib));
 					ib = 0;
 					saleShow(curSale);
 				}

@@ -12,8 +12,13 @@ include("html/common/header.phtml");
 	<li id="products"><a href="<? echo$s['r']; ?>management/products">Productos</a></li>
 	<li id="makes"><a href="<? echo$s['r']; ?>management/makes">Marcas</a></li>
 	<li id="categories"><a href="<? echo$s['r']; ?>management/categories">Categorías</a></li>
+	<li id="stock"><a href="<? echo$s['r']; ?>management/stock">Existencias</a></li>
+	<li id="orders"><a href="<? echo$s['r']; ?>management/orders">Pedidos</a></li>
+</ul>
+<ul id="accounts">
+	<span>Contabilidad</span>
 	<li id="discounts"><a href="<? echo$s['r']; ?>management/discounts">Descuentos</a></li>
-	<li id="purchases"><a href="<? echo$s['r']; ?>management/purchases">Compras</a></li>
+	<li id="taxes"><a href="<? echo$s['r']; ?>management/taxes">Impuestos</a></li>
 </ul>
 <ul id="informs">
 	<span>Informes</span>
@@ -25,15 +30,13 @@ include("html/common/header.phtml");
 <div id="panel">
 	<?php
 		if(isset($_GET['b'])){switch($_GET['b']){
-			case "purchases":
-				$tool = "purchases";
+			case "stock":
+				$tool = "stock";
 				break;
 			default:
 				$tool = "default";
 				break;
 		}}else $tool = "default";
-		echo"<section id=\"".$tool."\">";
 		include("html/".$mod."/".$tool.".phtml");
-		echo"</section>";
 	?>
 </div>
