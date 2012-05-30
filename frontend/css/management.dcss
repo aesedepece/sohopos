@@ -53,6 +53,7 @@ body#management > nav > ul > li.selected{
 }
 body#management > div#panel{
 	position: absolute;
+	max-height: 100%;
 	padding: 40px;
 	top: 100px;
 	left: 340px;
@@ -62,6 +63,7 @@ body#management > div#panel{
 	outline: 1px solid #666;
 	background-color: #333;
 	background-image: url("../img/texture.png");
+	overflow: auto;
 }
 body#management > div#panel > h1{
 	font-size: 1.2em;
@@ -81,7 +83,8 @@ body#management > div#panel > form > fieldset > input{
 	-moz-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
 	-webkit-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
 	border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
-	color: #777;
+	color: #AAA;
+	text-align: right;
 }
 body#management > div#panel > form > fieldset > input:focus{
 	-moz-border-image: url('../img/input-text-corners-selected.png') 4 4 4 4 repeat;
@@ -96,7 +99,7 @@ body#management > div#panel > form > fieldset > select{
 	-moz-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
 	-webkit-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
 	border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
-	color: #777;
+	color: #AAA;
 }
 body#management > div#panel > form > fieldset > select:focus{
 	-moz-border-image: url('../img/input-text-corners-selected.png') 4 4 4 4 repeat;
@@ -113,8 +116,7 @@ body#management > div#panel > form > fieldset > label{
 body#management > div#panel > form > figure#product{
 	display: none;
 	float: right;
-	width: 300px;
-	margin: 0 20px 20px 20px;
+	margin: -15px 10px 20px 20px;
 	padding: 10px;
 	border: 1px solid #000;
 	outline: 1px solid #666;
@@ -122,14 +124,17 @@ body#management > div#panel > form > figure#product{
 	background-image: url("../img/texture.png");
 }
 body#management > div#panel > form > figure#product img{
-	display: block;
 	width: 120px;
 	border: 5px solid #DDD;
 	outline: 1px solid #000;
 	background-image: url("../img/texture.png");
 }
 body#management > div#panel > form > figure#product figcaption{
-	float: right;
-	width: 160px;
-	text-align: right;
+	text-align: center;
+}
+body#management > div#panel > form > figure#product figcaption h1{
+	font-size: 0.8em;
+}
+body#management > div#panel > form > figure#product figcaption h2{
+	font-size: 0.6em;
 }

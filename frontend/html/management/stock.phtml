@@ -5,36 +5,54 @@
 	}
 	var move = new Movement();
 	
-	function showProd(product){
-		$("body#management > div#panel > form >  figure#product > figcaption").html(product.name);
+	function productShow(product){
+		$("body#management > div#panel > form >  figure#product > figcaption").html(
+			"<h1>" + product.name + "</h1>" + 
+			"<h2>" + product.make + "</h2>"
+		);
 		$("body#management > div#panel > form >  figure#product > img").attr("src","<?php echo$s['r'] ?>img/products/" + product.id + ".jpg");
 		$("body#management > div#panel > form >  figure#product").show();
 	}
-	
+
+	function distributorsList(product){
+		var distributors = distributorsGetFromProduct(product.id);
+		move.distributors = distributors;
+		var select = $("body#management > div#panel > form >  fieldset > select#distributor");
+		$.each(distributors, function(i){
+			select.append("<option value=\"" + i + "\">" + this.name + "</option>");
+		});
+	}
+
 	$(document).ready(function(){
 		var now = new Date();
 		$("body#management > div#panel > form > fieldset > input#date").val(now);
-		$("body#management > div#panel > form > fieldset > select").change(function(){
+		$("body#management > div#panel > form > fieldset > select.static").change(function(){
 			sessionStorage.setItem("management_" + this.id, this.value);
 		});
-		$("body#management > div#panel > form > fieldset > select").val(sessionStorage.getItem("management_type"));
+		$("body#management > div#panel > form > fieldset > select.static").val(sessionStorage.getItem("management_type"));
 		$("body#management > div#panel > form > fieldset > input#prod_code").keypress(function(e){
 			if(e.keyCode == 13){
 				e.preventDefault();
 				res = productSearch('code', $(this).val())[0];
 				if(res){
 					move.product = res;
-					showProd(move.product);
+					productShow(move.product);
+					distributorsList(move.product);
+					$("body#management > div#panel > form > fieldset > select#distributor").change();
 				}else alert("No se encontró tal producto");
 			}
+		});
+		$("body#management > div#panel > form > fieldset > select#distributor").change(function(){
+			$("body#management > div#panel > form > fieldset > input#pricebuy").val(move.distributors[this.value].pricebuy);
+			$("body#management > div#panel > form > fieldset > input#freeunits").val(move.distributors[this.value].freeunits);
 		});
 	});
 </script>
 <h1>Movimiento de existencias</h1>
 <form action="">
 	<figure id="product">
-		<figcaption></figcaption>
 		<img src="" alt="" />
+		<figcaption></figcaption>
 	</figure>
 	<fieldset>
 		<label for="date">Fecha</label>
@@ -42,7 +60,7 @@
 	</fieldset>
 	<fieldset>
 		<label for="type">Razón</label>
-		<select name="type" id="type" required />
+		<select name="type" id="type" class="static" required />
 			<option value="in_buy">← Compra</option>
 			<option value="in_back">← Devolución</option>
 			<option value="out_sell">Venta →</option>
@@ -51,7 +69,29 @@
 		</select>
 	</fieldset>
 	<fieldset>
-		<label for="code">Producto</label>
-		<input type="number" name="code" id="prod_code" required autofocus />
+		<label for="prod_code">Producto</label>
+		<input type="number" name="prod_code" id="prod_code" required autofocus />
+	</fieldset>
+	<fieldset>
+		<label for="distributor">Distribuidor</label>
+		<select name="distributor" id="distributor" required />
+			
+		</select>
+	</fieldset>
+	<fieldset>
+		<label for="pricebuy">Precio/u</label>
+		<input type="number" name="pricebuy" id="pricebuy" required />
+	</fieldset>
+	<fieldset>
+		<label for="units">Unidades</label>
+		<input type="number" name="units" id="units" value="1" required />
+	</fieldset>
+	<fieldset>
+		<label for="freeunits">U. gratis</label>
+		<input type="number" name="freeunits" id="freeunits" value="0"/>
+	</fieldset>
+	<fieldset>
+		<label for="expiry">Caducidad</label>
+		<input type="date" name="expiry" id="expiry" />
 	</fieldset>
 </form>

@@ -24,3 +24,19 @@ function productSearch(searchby, value){
 	}).responseText;
 	return JSON.parse(proddata);
 }
+
+function distributorsGetFromProduct(product){
+	var distributors = $.ajax({
+		type: "POST",       
+		url: "<?php echo$s['r']; ?>distributors/getFromProduct",
+		data: { product: product },
+		dataType: "json",
+		context: document.body,
+		global: false,
+		async:false,
+		success: function(data) {
+			return data;
+		}
+	}).responseText;
+	return JSON.parse(distributors);
+}
