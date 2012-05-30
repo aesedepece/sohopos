@@ -3,6 +3,12 @@ session_start();
 $s = $_SESSION['s'];
 ?>
 
+var tool = "default";
+
+$('document').ready(function(){
+	$("body#management > nav > ul > li#" + tool).addClass("selected");
+});
+
 function productSearch(searchby, value){
 	var proddata = $.ajax({
 		type: "POST",       
