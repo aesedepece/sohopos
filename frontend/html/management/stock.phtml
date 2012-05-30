@@ -18,6 +18,7 @@
 		var distributors = distributorsGetFromProduct(product.id);
 		move.distributors = distributors;
 		var select = $("body#management > div#panel > form >  fieldset > select#distributor");
+		select.empty();
 		$.each(distributors, function(i){
 			select.append("<option value=\"" + i + "\">" + this.name + "</option>");
 		});
