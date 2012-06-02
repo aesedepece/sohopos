@@ -65,6 +65,23 @@ body#management > div#panel{
 	background-image: url("../img/texture.png");
 	overflow: auto;
 }
+body#management > div#panel > form > a#ok{
+	float: right;
+	margin-top: -75px;
+	margin-right: 10px;
+	padding: 10px 20px;
+	background-color: #690;
+	color: #FFF;
+	border-radius: 2px;
+	border-top: 1px solid #9C0;
+	border-bottom: 1px solid  #360;
+	font-size: 0.8em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+body#management > div#panel > form > a#ok > img{
+	margin-bottom: -3px;
+}
 body#management > div#panel > h1{
 	font-size: 1.2em;
 	font-weight: normal;
@@ -79,6 +96,7 @@ body#management > div#panel > form > fieldset{
 body#management > div#panel > form > fieldset > input{
 	min-width: 200px;
 	margin-top: -5px;
+	margin-right: 5px;
 	border: 4px solid;
 	-moz-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
 	-webkit-border-image: url('../img/input-text-corners.png') 4 4 4 4 repeat;
@@ -112,6 +130,32 @@ body#management > div#panel > form > fieldset > label{
 	float: left;
 	min-width: 100px;
 	color: #CCC;
+}
+body#management > div#panel > form > fieldset > button.qty{
+	position: relative;
+	top: -3px;
+	margin-right: -5px;
+	padding: 5px 8px;
+	background-color: #222;
+	color: #999;
+	border-top: 1px solid #555;
+	border-bottom: 1px solid #111;
+	font-weight: bold;
+}
+body#management > div#panel > form > fieldset > button.qty:hover{
+	background-color: #690;
+	color: #FFF;
+	border-top: 1px solid #9C0;
+	border-bottom: 1px solid  #360;
+}
+body#management > div#panel > form > fieldset > button.minus{
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+body#management > div#panel > form > fieldset > button.plus{
+	border-left: 1px solid #333;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
 }
 body#management > div#panel > form > figure#product{
 	display: none;

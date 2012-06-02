@@ -2,7 +2,7 @@
 
 function getFromProduct($db){
 	$q = mysql_query("
-	SELECT distributors.*, distributors_products.pricebuy, distributors_products.freeunits
+	SELECT distributors.*, distributors_products.pricebuy
 	FROM distributors, distributors_products
 	WHERE distributors.id = distributors_products.distributor_id
 	AND distributors_products.product_id = '".$_POST['product']."'

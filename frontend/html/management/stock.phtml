@@ -45,12 +45,28 @@
 		});
 		$("body#management > div#panel > form > fieldset > select#distributor").change(function(){
 			$("body#management > div#panel > form > fieldset > input#pricebuy").val(move.distributors[this.value].pricebuy);
-			$("body#management > div#panel > form > fieldset > input#freeunits").val(move.distributors[this.value].freeunits);
+			$("body#management > div#panel > form > fieldset > input#pricesell").val((move.product.pricesell*(1+move.product.tax/100)).toFixed(2));
+		});
+		
+		$("body#management > div#panel > form > fieldset > button.minus").click(function(e){
+			e.preventDefault();
+			var input = $(this).siblings('input');
+			var cur = parseInt(input.val());
+			var res = cur>input.attr('min') ? cur-1 : cur;
+			input.val(res);
+		});
+		$("body#management > div#panel > form > fieldset > button.plus").click(function(e){
+			e.preventDefault();
+			var input = $(this).siblings('input');
+			var cur = parseInt(input.val());
+			var res = cur+1;
+			input.val(res);
 		});
 	});
 </script>
 <h1>Movimiento de existencias</h1>
 <form action="">
+	<a id="ok"><img src="<?php echo $s['r']; ?>frontend/img/icons/tick.png" alt="→" /> Guardar</a>
 	<figure id="product">
 		<img src="" alt="" />
 		<figcaption></figcaption>
@@ -83,15 +99,23 @@
 	</fieldset>
 	<fieldset>
 		<label for="pricebuy">Precio/u</label>
-		<input type="number" name="pricebuy" id="pricebuy" required />
+		<input type="number" name="pricebuy" id="pricebuy" min="0" required />
+	</fieldset>
+	<fieldset>
+		<label for="pricebuy">PVP</label>
+		<input type="number" name="pricesell" id="pricesell" min="0" required />
 	</fieldset>
 	<fieldset>
 		<label for="units">Unidades</label>
-		<input type="number" name="units" id="units" value="1" required />
+		<input type="number" name="units" id="units" value="1" min="1" step="1" required />
+		<button class="qty minus">-</button>
+		<button class="qty plus">+</button>
 	</fieldset>
 	<fieldset>
 		<label for="freeunits">U. gratis</label>
-		<input type="number" name="freeunits" id="freeunits" value="0"/>
+		<input type="number" name="freeunits" id="freeunits" value="0" min="0" step="1" />
+		<button class="qty minus">-</button>
+		<button class="qty plus">+</button>
 	</fieldset>
 	<fieldset>
 		<label for="expiry">Caducidad</label>

@@ -37,7 +37,7 @@ include("html/common/header.phtml");
 				<li id="butopendrawer">Abrir cajón</li>
 				<li id="butclients" onclick="clientChange();">Clientes<span class="label"></span></li>
 				<li id="butdiscount">Descuentos</li>
-				<li id="butcashclose">Devoluciones</li>
+				<li id="butpayment" onclick="pay();">Pago</li>
 			</ul>
 		</section>
 	</section>
@@ -46,8 +46,7 @@ include("html/common/header.phtml");
 	<?php
 		if(isset($_GET['b'])){switch($_GET['b']){
 			case "payment":
-				break;
-			case "receipt":
+				$tool = "payment";
 				break;
 			case "clients":
 				$tool = "clients";
