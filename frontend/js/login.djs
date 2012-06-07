@@ -14,10 +14,11 @@ $(document).ready(function(){
 		 			$("#logerror").css('display', 'block');
 		 		}else{
 		 			mydata = jQuery.parseJSON(userdata);
-		 			if(mydata.username==user){
+		 			if(typeof(mydata)==undefined)alert("SOMETHING WENT TERRIBLY WRONG!");
+		 			else if(mydata.username==user){
 		 				location.reload();
 		 			}else{
-		 				alert("SOMETHING WENT TERRIBLY WRONG!");
+		 				$("#logerror").css('display', 'block');
 		 			}
 		 		}
 		});
