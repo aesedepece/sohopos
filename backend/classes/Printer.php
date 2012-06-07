@@ -34,10 +34,12 @@ class Printer{
 			"/¡/" => array(173),
 			"/€/" => array(213),
 			"/<reset>/" => array(27, 64),
+			"/<euro>/" => array(27, 116, 19),
 			"/<drawerOpen>/" => array(27, 61, 1, 27, 112, 0, 50, 250),
-			"/<halfCut>/" => array(27, 109),
-			"/<fullCut>/" => array(27, 109),
-			"/<sp (\d+)>/" => array(27, 32),
+			"/<stripeCut>/" => array(27, 109),
+			"/<fullCut>/" => array(29, 86, 65),
+			"/<halfCut>/" => array(29, 86, 66),
+			"/<sp(\d+)>/" => array(27, 32),
 			"/<u>/" => array(27, 45, 1),
 			"/<\/u>/" => array(27, 45, 0),
 			"/<du>/" => array(27, 45, 2),
@@ -47,7 +49,10 @@ class Printer{
 			"/<\/strong>/" => array(27, 71, 0),
 			"/<left>/" => array(27, 97, 0),
 			"/<center>/" => array(27, 97, 1),
-			"/<right>/" => array(27, 97, 2)
+			"/<right>/" => array(27, 97, 2),
+			"/<font(\d+)>/" => array(27, 77),
+			"/<hr>/" => array(196,  196,  196,  196,  196,  196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196, 196),
+			"/<big>/" => array(29, 33, 1),
 		);
 		foreach($codeMap as $pattern => $code){
 			$seq = "";
@@ -64,6 +69,10 @@ class Printer{
 	public function halfCut(){
 		$this->write("<halfCut>");
 	}
+	
+	public function ticketPrint($ticket, $format){
+		echo $format;
+	}
 
 	private function out($string){
 		file_put_contents($this->port, $string);
@@ -72,9 +81,7 @@ class Printer{
 
 }
 
-$p = new Printer("/dev/usblp0");
-//$p->write("¡Hola tú! :)\n");
-//$p->drawerOpen();
-//$p->fullCut();
-//$p->write("<left>A la derecha<center>al centro<right>a la izquierda\n<fullCut>");
-$p->write("<sp 0>Letras juntitas\n<sp 6>Letras separadas");
+$p = new Printer("/dev/usb/lp0");
+$ticket['user'] = "Adán";
+$format = file_get_contents("ticket.php");
+$p->ticketPrint($ticket, $format);

@@ -1,9 +1,10 @@
 <script type="text/javascript">
 	tool = "stock";
 	
-	function Movement(){
+	function Foo(){
 	}
-	var move = new Movement();
+	
+	var move = new Foo();
 	
 	function productShow(product){
 		$("body#management > div#panel > form >  figure#product > figcaption").html(
@@ -23,10 +24,28 @@
 			select.append("<option value=\"" + i + "\">" + this.name + "</option>");
 		});
 	}
+	
+	function save(){
+		var form = new Foo();
+		form.type = $("body#management > div#panel > form > fieldset > select#type").val();
+		form.prod = move.product.id;
+		form.units = $("body#management > div#panel > form > fieldset > input#units").val();
+		form.freeunits = $("body#management > div#panel > form > fieldset > input#freeunits").val();
+		form.dist = move.distributors[$("body#management > div#panel > form > fieldset > select#distributor").val()].id;
+		form.pricebuy = $("body#management > div#panel > form > fieldset > input#pricebuy").val();
+		form.pricesell = $("body#management > div#panel > form > fieldset > input#pricesell").val();
+		form.expiry = $("body#management > div#panel > form > fieldset > input#expiry").val();
+		$.post("<?php echo$s['r']; ?>units/move", { move: form }, function(data) {
+ 			 alert(data);
+		});
+	}
 
 	$(document).ready(function(){
 		var now = new Date();
-		$("body#management > div#panel > form > fieldset > input#date").val(now);
+		var day = now.getDate()
+		var month  = now.getMonth();
+		var year = now.getFullYear();
+		$("body#management > div#panel > form > fieldset > input#date").val((day > 9 ? day : "0"+day) + "-" + (month > 9 ? month : "0"+month)  + "-" + year);
 		$("body#management > div#panel > form > fieldset > select.static").change(function(){
 			sessionStorage.setItem("management_" + this.id, this.value);
 		});
@@ -66,14 +85,14 @@
 </script>
 <h1>Movimiento de existencias</h1>
 <form action="">
-	<a id="ok"><img src="<?php echo $s['r']; ?>frontend/img/icons/tick.png" alt="→" /> Guardar</a>
+	<a id="ok" onclick="save();"><img src="<?php echo $s['r']; ?>frontend/img/icons/tick.png" alt="→" /> Guardar</a>
 	<figure id="product">
 		<img src="" alt="" />
 		<figcaption></figcaption>
 	</figure>
 	<fieldset>
 		<label for="date">Fecha</label>
-		<input type="date" name="date" id="date" required />
+		<input type="date" name="date" id="date" disabled/>
 	</fieldset>
 	<fieldset>
 		<label for="type">Razón</label>
@@ -94,7 +113,6 @@
 	<fieldset>
 		<label for="distributor">Distribuidor</label>
 		<select name="distributor" id="distributor" required />
-			
 		</select>
 	</fieldset>
 	<fieldset>
