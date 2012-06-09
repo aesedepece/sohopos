@@ -1,3 +1,7 @@
+<?php 
+session_start();
+$s = $_SESSION['s'];
+?>
 <script type="text/javascript">
 	tool = "stock";
 	
@@ -85,7 +89,7 @@
 </script>
 <h1>Movimiento de existencias</h1>
 <form action="">
-	<a id="ok" onclick="save();"><img src="<?php echo $s['r']; ?>frontend/img/icons/tick.png" alt="→" /> Guardar</a>
+	<a id="ok" onclick="save();"><img src="<?php echo $this->app->s['r']; ?>res/img/icons/tick.png" alt="→" /> Guardar</a>
 	<figure id="product">
 		<img src="" alt="" />
 		<figcaption></figcaption>
