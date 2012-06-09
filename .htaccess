@@ -1,5 +1,0 @@
-AddType application/x-httpd-php .dcss
-AddType application/x-httpd-php .djs
-RewriteEngine on
-RewriteRule    ^$    frontend/    [L]
-RewriteRule    (.*) frontend/$1    [L]
