@@ -3,7 +3,7 @@
 <script type="text/javascript">
 	$("document").ready(function(){
 		tool = "clients";
-		$("body#sale > section#right > section#clients > div > section#clientsBrowser input[type=text]").keydown(function(e){
+		$("body#sales > section#right > section#clients > div > section#clientsBrowser input[type=text]").keydown(function(e){
 			if(e.keyCode>=65&&e.keyCode<=90){
 				var string = $(this).val()+String.fromCharCode(e.keyCode);
 			}else if(e.keyCode==8){
@@ -13,7 +13,7 @@
 				var string = $(this).val();
 			}
 			var clients = clientSearch(string);
-			var ul = $("body#sale > section#right > section#clients > div > section#clientsBrowser > ul");
+			var ul = $("body#sales > section#right > section#clients > div > section#clientsBrowser > ul");
 			if(clients){
 				console.log(clients);
 				ul.html("");
@@ -24,9 +24,9 @@
 				ul.html("No hay clientes con ese nombre o apellido");
 			}
 		});
-		var ul = $("body#sale > section#right > section#clients > div > section#topClients > ul");
+		var ul = $("body#sales > section#right > section#clients > div > section#topClients > ul");
 		var top = topClients(5);
-		if(top){
+		if(top&&top.length>0){
 			ul.html("");
 			$.each(top, function(){
 				ul.append("<li onclick=\"clientChange(" + this.id + ")\" id=\"" + this.id + "\">" + this.name + " " + this.surname + "</li>");
@@ -34,6 +34,7 @@
 		}else{
 			ul.html("Todavía no hay clientes registrados que hayan comprado");
 		}
+		ul.show();
 	});
 </script>
 <h1>Clientes</h1>
