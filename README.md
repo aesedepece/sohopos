@@ -1,4 +1,4 @@
-<img src="https://github.com/aesedepece/librepos/raw/master/frontend/img/biglogo.png" alt="librePOS" />
+<img src="https://github.com/aesedepece/librepos/raw/master/res/img/biglogo.png" alt="librePOS" />
 ## Current development status
 THIS SOFTWARE IS UNDER STRONG DEVELOPMENT BUT STILL NOT USABLE OR EVEN USEFUL AS IT LACKS MOST FEATURES YET.
 
