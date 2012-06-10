@@ -8,13 +8,22 @@ class Units extends Cnt{
 
 	public function move(){
 		$move = $_POST['move'];
-		$this->insert($move);
-		if($move['freeunits']>0){
-			$free = $move;
-			$free['units'] = $free['freeunits'];
-			$free['pricebuy'] = 0;
-			$this->insert($free);
-		};
+		switch($move['type']){
+			case "in_buy":
+				$this->insert($move);
+				if($move['freeunits']>0){
+					$free = $move;
+					$free['units'] = $free['freeunits'];
+					$free['pricebuy'] = 0;
+					$this->insert($free);
+				}
+				$oldpricebuy = mysql_result(mysql_query("SELECT pricebuy FROM distributors_products WHERE distributor_id = '".$move['dist']."' AND product_id = '".$move['prod']."'", $this->app->db), 0);
+				if($oldpricebuy!=$move['pricebuy'])mysql_query("UPDATE distributors_products SET pricebuy = '".$move['pricebuy']."' WHERE distributor_id = '".$move['dist']."' AND product_id = '".$move['prod']."'", $this->app->db);
+				break;
+			case "in_trans":
+				$this->insert($move);
+				break;
+		}
 		echo"Operación realizada correctamente";
 	}
 
@@ -26,6 +35,10 @@ class Units extends Cnt{
 				(".$move['prod'].", ".$move['dist'].", ".$move['pricebuy'].", '".date("Y-m-d" ,strtotime($move['expiry']))."')";
 			mysql_query($sql, $this->app->db);
 		}
+	}
+	
+	private function withdraw($amount){
+		
 	}
 
 }

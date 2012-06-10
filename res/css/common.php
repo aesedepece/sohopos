@@ -56,7 +56,7 @@ header#topbar a#logo{
 	border-right: 1px solid #1A1A1A;
 }
 header#topbar a#logo img{
-	margin: 18px 0 0 20px;
+	margin: 21px 0 0 10px;
 }
 header#topbar nav{
 	float: left;
