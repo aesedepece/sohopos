@@ -1,8 +1,8 @@
 <?php
 
 $db['h'] = "localhost"; // Database host
-$db['n'] = "librepos"; // Database name
-$db['u'] = "librepos"; // Database username
+$db['n'] = "sohopos"; // Database name
+$db['u'] = "sohopos"; // Database username
 $db['p'] = "password"; // Database password
 
 if(isset($_GET['back']))$forcebackend = true;
