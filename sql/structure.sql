@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.3
+-- version 3.4.10
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 15, 2012 at 03:56 PM
--- Server version: 5.1.62
--- PHP Version: 5.3.6-13ubuntu3.6
+-- Generation Time: Jun 11, 2012 at 08:16 AM
+-- Server version: 5.5.22
+-- PHP Version: 5.3.10-1ubuntu3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `librepos`
+-- Database: `sohopos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cashposts`
+--
+
+CREATE TABLE IF NOT EXISTS `cashposts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `referenced` tinyint(1) NOT NULL,
+  `value` decimal(11,0) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -85,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `distributors` (
   `name` varchar(32) NOT NULL,
   `tin` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -97,7 +111,6 @@ CREATE TABLE IF NOT EXISTS `distributors_products` (
   `distributor_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `pricebuy` double NOT NULL,
-  `freeunits` int(11) DEFAULT NULL,
   PRIMARY KEY (`distributor_id`,`product_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -247,11 +260,12 @@ CREATE TABLE IF NOT EXISTS `units` (
   `product_id` int(11) NOT NULL,
   `distributor_id` int(11) NOT NULL,
   `pricebuy` double NOT NULL,
-  `expiry` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `indate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expiry` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `distributor_id` (`distributor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 

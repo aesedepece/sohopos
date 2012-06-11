@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.3
+-- version 3.4.10
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 15, 2012 at 03:58 PM
--- Server version: 5.1.62
--- PHP Version: 5.3.6-13ubuntu3.6
+-- Generation Time: Jun 11, 2012 at 08:17 AM
+-- Server version: 5.5.22
+-- PHP Version: 5.3.10-1ubuntu3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,20 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `librepos`
+-- Database: `sohopos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `key` varchar(12) NOT NULL,
+  `value` text,
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `settings`
@@ -26,9 +38,8 @@ SET time_zone = "+00:00";
 
 INSERT INTO `settings` (`key`, `value`) VALUES
 ('custDisPort', NULL),
-('printerPort', '/dev/usblp0'),
-('productsExpi', 'true'),
-('r', '/');
+('printerPort', '/dev/usblp/0'),
+('r', '/sohopos/');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
