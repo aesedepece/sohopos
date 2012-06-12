@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2012 at 08:16 AM
+-- Generation Time: Jun 12, 2012 at 08:22 PM
 -- Server version: 5.5.22
 -- PHP Version: 5.3.10-1ubuntu3.1
 
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `cashposts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `referenced` tinyint(1) NOT NULL,
-  `value` decimal(11,0) NOT NULL,
+  `value` decimal(4,2) NOT NULL,
+  `caption` varchar(30) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   PRIMARY KEY (`id`),
   KEY `seller_id` (`seller_id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -265,15 +265,15 @@ CREATE TABLE IF NOT EXISTS `units` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `distributor_id` (`distributor_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `unit_sales`
+-- Table structure for table `units_sales`
 --
 
-CREATE TABLE IF NOT EXISTS `unit_sales` (
+CREATE TABLE IF NOT EXISTS `units_sales` (
   `unit_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
   `returned` timestamp NULL DEFAULT NULL,
@@ -281,6 +281,19 @@ CREATE TABLE IF NOT EXISTS `unit_sales` (
   KEY `sale_id` (`sale_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_curUnits`
+--
+CREATE TABLE IF NOT EXISTS `v_curUnits` (
+`id` int(11)
+,`product_id` int(11)
+,`distributor_id` int(11)
+,`pricebuy` double
+,`indate` timestamp
+,`expiry` date
+);
 -- --------------------------------------------------------
 
 --
@@ -307,11 +320,20 @@ CREATE TABLE IF NOT EXISTS `v_topClients` (
 -- --------------------------------------------------------
 
 --
+-- Structure for view `v_curUnits`
+--
+DROP TABLE IF EXISTS `v_curUnits`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VIEW `v_curUnits` AS select `units`.`id` AS `id`,`units`.`product_id` AS `product_id`,`units`.`distributor_id` AS `distributor_id`,`units`.`pricebuy` AS `pricebuy`,`units`.`indate` AS `indate`,`units`.`expiry` AS `expiry` from (`units` left join `units_sales` on((`units`.`id` = `units_sales`.`unit_id`))) where isnull(`units_sales`.`unit_id`);
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_stock`
 --
 DROP TABLE IF EXISTS `v_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`librepos`@`%` SQL SECURITY DEFINER VIEW `v_stock` AS select `units`.`product_id` AS `product_id`,`products`.`reference` AS `reference`,`products`.`code` AS `code`,`products`.`name` AS `name`,count(0) AS `amount` from (`products` join `units`) group by `products`.`id` having (`products`.`id` = `units`.`product_id`);
+CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VIEW `v_stock` AS select `units`.`product_id` AS `product_id`,`products`.`reference` AS `reference`,`products`.`code` AS `code`,`products`.`name` AS `name`,count(0) AS `amount` from (`products` join `v_curUnits` `units`) group by `products`.`id` having (`products`.`id` = `units`.`product_id`);
 
 -- --------------------------------------------------------
 
@@ -320,7 +342,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`librepos`@`%` SQL SECURITY DEFINER VIEW `v_s
 --
 DROP TABLE IF EXISTS `v_topClients`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`librepos`@`%` SQL SECURITY DEFINER VIEW `v_topClients` AS select count(0) AS `numsales`,`sales`.`client_id` AS `id`,`clients`.`name` AS `name`,`clients`.`surname` AS `surname` from (`clients` join `sales`) group by `clients`.`id` having (`clients`.`id` = `sales`.`client_id`) order by count(0) desc;
+CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VIEW `v_topClients` AS select count(0) AS `numsales`,`sales`.`client_id` AS `id`,`clients`.`name` AS `name`,`clients`.`surname` AS `surname` from (`clients` join `sales`) group by `clients`.`id` having (`clients`.`id` = `sales`.`client_id`) order by count(0) desc;
 
 --
 -- Constraints for dumped tables
@@ -381,11 +403,11 @@ ALTER TABLE `units`
   ADD CONSTRAINT `units_ibfk_2` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`);
 
 --
--- Constraints for table `unit_sales`
+-- Constraints for table `units_sales`
 --
-ALTER TABLE `unit_sales`
-  ADD CONSTRAINT `unit_sales_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`),
-  ADD CONSTRAINT `unit_sales_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`);
+ALTER TABLE `units_sales`
+  ADD CONSTRAINT `units_sales_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`),
+  ADD CONSTRAINT `units_sales_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
