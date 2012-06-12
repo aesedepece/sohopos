@@ -1,5 +1,8 @@
 <?php
 
+require_once("units.cnt.php");
+require_once("cash.cnt.php");
+
 class Sales extends Cnt{
 
 	function Sales($app){
@@ -15,6 +18,7 @@ class Sales extends Cnt{
 								ORDER BY id DESC
 								LIMIT 1", $this->app->db),0);
 		echo json_encode($sale);
+		return  $sale;
 	}
 
 	public function saleTouch(){
@@ -31,9 +35,7 @@ class Sales extends Cnt{
 	}
 
 	public function saleEnd(){
-		mysql_query("	UPDATE sales 
-				SET enddate = CURRENT_TIMESTAMP 
-				WHERE id = '".$_POST['id']."'", $this->app->db);
+		$this->close($_POST['id'], $_POST['articles']);
 	}
 
 	public function getFromDB(){
@@ -51,6 +53,43 @@ class Sales extends Cnt{
 			}
 		}
 		echo json_encode($sales);
+	}
+	
+	public function move(){
+		$units = new Units($this->app);
+		$cash = new Cash($this->app);
+		$move = $_POST['move'];
+		switch($move['type']){
+			case "in_buy":
+				$units->insert($move);
+				if($move['freeunits']>0){
+					$free = $move;
+					$free['units'] = $free['freeunits'];
+					$free['pricebuy'] = 0;
+					$units->insert($free);
+				}
+				$oldpricebuy = mysql_result(mysql_query("SELECT pricebuy FROM distributors_products WHERE distributor_id = '".$move['dist']."' AND product_id = '".$move['prod']."'", $this->app->db), 0);
+				if($oldpricebuy!=$move['pricebuy'])mysql_query("UPDATE distributors_products SET pricebuy = '".$move['pricebuy']."' WHERE distributor_id = '".$move['dist']."' AND product_id = '".$move['prod']."'", $this->app->db);
+				break;
+			case "in_trans":
+				$units->insert($move);
+				break;
+			case "in_back":
+				$units->insert($move);
+				$cash->add(($move['pricesell']*$move['units']), "BACK ".$move['prod']."x".$move['units']);
+				break;
+			case "out_sell":
+				$sale = $this->saleNew();
+				saleEnd();
+				break;
+		}
+	}
+	
+	private function close($id, $articles){
+		mysql_query("	UPDATE sales 
+				SET enddate = CURRENT_TIMESTAMP 
+				WHERE id = '".$id."'", $this->app->db);
+		
 	}
 
 }

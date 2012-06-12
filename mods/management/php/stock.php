@@ -15,7 +15,7 @@ $s = $_SESSION['s'];
 			"<h1>" + product.name + "</h1>" + 
 			"<h2>" + product.make + "</h2>"
 		);
-		$("body#management > div#panel > form >  figure#product > img").attr("src","<?php echo$s['r'] ?>img/products/" + product.id + ".jpg");
+		$("body#management > div#panel > form >  figure#product > img").attr("src","<?php echo$s['r'] ?>res/img/products/" + product.id + ".jpg");
 		$("body#management > div#panel > form >  figure#product").show();
 	}
 
@@ -39,7 +39,7 @@ $s = $_SESSION['s'];
 		form.pricebuy = $("body#management > div#panel > form > fieldset > input#pricebuy").val();
 		form.pricesell = $("body#management > div#panel > form > fieldset > input#pricesell").val();
 		form.expiry = $("body#management > div#panel > form > fieldset > input#expiry").val();
-		$.post("<?php echo$s['r']; ?>units/move", { move: form }, function(data) {
+		$.post("<?php echo$s['r']; ?>sales/move", { move: form }, function(data) {
  			 alert(data);
 		});
 	}
