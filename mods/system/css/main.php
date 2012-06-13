@@ -131,7 +131,7 @@ body#system > div#panel > form > fieldset > select:focus{
 body#system > div#panel > form > fieldset > label{
 	display: block;
 	float: left;
-	min-width: 100px;
+	min-width: 150px;
 	color: #CCC;
 }
 body#system > div#panel > form > fieldset > button.qty{
