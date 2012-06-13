@@ -29,7 +29,7 @@
 				<tr><td colspan="2">0</td><td>.</td></tr>
 			</table>
 			<ul>
-				<li id="butpayment" onclick="pay();">Pago</li>
+				<li id="butpayment" onclick="payment();">Pago</li>
 				<li id="butprint" onclick="ticketPrint();">Imprimir</li>
 				<li id="butopendrawer" onclick="drawerOpen();">Abrir cajón</li>
 				<li id="butclients" onclick="clientChange();">Clientes<span class="label"></span></li>

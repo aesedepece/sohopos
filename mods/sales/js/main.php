@@ -403,6 +403,11 @@ function discountGet(id){
 	return JSON.parse(discountData);
 }
 
+function payment(){
+	if(tool=="payment")window.location = "<?php echo$s['r']; ?>sales";
+	else window.location = "<?php echo$s['r']; ?>sales/payment";
+}
+
 function drawerOpen(){
 	$.post("<?php echo$s['r']; ?>printer/drawerOpen");
 }

@@ -76,7 +76,7 @@ class Sales extends Cnt{
 				break;
 			case "in_back":
 				$units->insert($move);
-				$cash->add(($move['pricesell']*$move['units']), "BACK ".$move['prod']."x".$move['units']);
+				$cash->add(-($move['pricesell']*$move['units']), "BACK ".$move['prod']."x".$move['units']);
 				break;
 			case "out_sell":
 				$sale = $this->saleNew();
@@ -84,6 +84,7 @@ class Sales extends Cnt{
 				$articles[0]['qty'] = $move['units'];
 				$articles[0]['subprice'] = $move['pricesell'];
 				$this->close($sale['id'], $articles);
+				$cash->add(($move['pricesell']*$move['units']), "SALE #".$sale['id']);
 				break;
 			case "back":
 				$units->extract($move);
