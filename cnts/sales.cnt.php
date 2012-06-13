@@ -18,7 +18,7 @@ class Sales extends Cnt{
 								ORDER BY id DESC
 								LIMIT 1", $this->app->db),0);
 		echo json_encode($sale);
-		return  $sale;
+		return $sale;
 	}
 
 	public function saleTouch(){
@@ -80,7 +80,10 @@ class Sales extends Cnt{
 				break;
 			case "out_sell":
 				$sale = $this->saleNew();
-				saleEnd();
+				$articles[0]['id'] = $move['prod'];
+				$articles[0]['qty'] = $move['units'];
+				$articles[0]['subprice'] = $move['pricesell'];
+				$this->close($sale['id'], $articles);
 				break;
 		}
 	}
@@ -88,7 +91,22 @@ class Sales extends Cnt{
 	private function close($id, $articles){
 		mysql_query("	UPDATE sales 
 				SET enddate = CURRENT_TIMESTAMP 
-				WHERE id = '".$id."'", $this->app->db);
+				WHERE id = '".$id."'"
+		, $this->app->db);
+		foreach($articles as $article){
+			$sql = mysql_query("	SELECT id 
+						FROM v_curUnits 
+						WHERE product_id = '".$article['id']."'
+						ORDER BY expiry, indate ASC LIMIT '".$article['units']."'"
+			, $this->app->db)
+			if(mysql_num_rows($sql)=>$unit['units']){
+				while($unit = mysql_fetch_assoc($sql)){
+					mysql_query("	INSERT INTO units_sales (unit_id, sale_id)
+							VALUES ('".$unit['id']."', '".$id."')"
+					, $this->app->db);
+				}
+			}
+		}
 		
 	}
 
