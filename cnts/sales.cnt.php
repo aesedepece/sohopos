@@ -85,6 +85,15 @@ class Sales extends Cnt{
 				$articles[0]['subprice'] = $move['pricesell'];
 				$this->close($sale['id'], $articles);
 				break;
+			case "back":
+				$units->extract($move);
+				break;
+			case "out_broken":
+				$units->extract($move);
+				break;
+			case "out_trans":
+				$units->extract($move);
+				break;
 		}
 	}
 	
