@@ -1,7 +1,7 @@
 <nav id="system">
 <ul id="settings">
 	<span>Ajustes</span>
-	<li id="environment"><a href="<? echo$this->app->s['r']; ?>system/environment">Ajustes de entorno</a></li>
+	<li id="environment"><a href="<? echo$this->app->s['r']; ?>system/environment">Variables de entorno</a></li>
 </ul>
 <ul id="admin">
 	<span>Administración</span>
