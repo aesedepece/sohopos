@@ -383,6 +383,21 @@ body#sales > section#right > section#discounts > ul{
 	border-radius: 2px;
 	background-image: url("../../../res/img/texture.png");
 }
+body#sales > section#right > section#discounts > ul > li{
+	margin: 0 auto;
+	list-style-type: none;
+	width: 200px;
+	padding: 15px;
+	background-color: #555;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #222;
+	border-radius: 2px;
+	background-image: url("../../../res/img/texture.png");
+	cursor: pointer;
+}
+body#sales > section#right > section#discounts > ul > li.current{
+	background-color: #680;
+}
 header#topbar div#context div#ticketinfo{
 	height: 30px;
 	padding: 5px 10px;

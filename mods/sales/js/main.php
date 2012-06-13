@@ -132,7 +132,10 @@ function savedSalesLoad(){
 			for(i=0;i<sales.length;i++){
 				if(sales[i].id==this.id){
 					is=true;
-					break;
+					break;	if(sales[sale].client>0){
+		var clientData = clientGet(sales[sale].client)[0];
+		$("section#pad > ul > li#butclients > span.label").html(clientData.name).show();
+	}else $("section#pad > ul > li#butclients > span.label").html("").hide();
 				}
 			}
 			var saledata = new Array();
@@ -163,6 +166,11 @@ function saleShow(sale){
 		sales[sale].ttax += parseFloat(item.ttax);
 		sales[sale].total += parseFloat(item.total);
 	}
+	if(sales[sale].discount>0){
+		var discountData = discountGet(sales[sale].discount)[0];
+		$("section#articles table tbody").append("<tr><td class=\"article\">Descuento " + discountData.caption + "</td><td id=\"subprice\" >-" + discountData.value + "%</td><td id=\"qty\"></td><td id=\"ttax\"></td><td id=\"total\">-" + (sales[sale].total*discountData.value/100).toFixed(2) + "</td></tr>");
+		sales[sale].total *= 1 - discountData.value / 100;
+	}
 	$($("section#articles table tbody tr").get(selItem)).addClass("selected");
 	$("section#sum > div#subtotal > span.value").html(sales[sale].subtotal.toFixed(2)+"€");
 	$("section#sum > div#taxes > span.value").html(sales[sale].ttax.toFixed(2)+"€");
@@ -173,6 +181,10 @@ function saleShow(sale){
 		var clientData = clientGet(sales[sale].client)[0];
 		$("section#pad > ul > li#butclients > span.label").html(clientData.name).show();
 	}else $("section#pad > ul > li#butclients > span.label").html("").hide();
+	if(sales[sale].discount>0){
+		var discountData = discountGet(sales[sale].discount)[0];
+		$("section#pad > ul > li#butdiscounts > span.label").html("-" + discountData.value + "%").show();
+	}else $("section#pad > ul > li#butdiscounts > span.label").html("").hide();
 	bindEvents();
 	salesSave();
 }
@@ -307,6 +319,9 @@ function clientChange(client){
 		else window.location = "<?php echo$s['r']; ?>sales/clients";
 	 }else{
 	 	sales[curSale].client = client;
+	 	clientData = clientGet(client);
+	 	if(clientData[0].defaultdiscount_id>0) sales[curSale].discount = clientData[0].defaultdiscount_id;
+	 	else sales[curSale].discount = null;
 	 	salesSave();
 	 	clientChange();
 	 }
@@ -368,8 +383,24 @@ function discountChange(discount){
 	 }else{
 	 	sales[curSale].discount = discount;
 	 	salesSave();
-	 	cdiscountChange();
+	 	discountChange();
 	 }
+}
+
+function discountGet(id){
+	var discountData = $.ajax({
+		type: "POST",       
+		url: "<?php echo$s['r']; ?>discounts/get",
+		data: { id: id },
+		dataType: "json",
+		context: document.body,
+		global: false,
+		async:false,
+		success: function(data) {
+			return data;
+		}
+	}).responseText;
+	return JSON.parse(discountData);
 }
 
 function drawerOpen(){
