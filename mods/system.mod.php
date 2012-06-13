@@ -8,6 +8,18 @@ class System extends Mod{
 		parent::Mod($app);
 		parent::resImport("header");
 		if(isset($this->app->tool)){switch($this->app->tool){
+			case "environment":
+				$this->tool = "environment";
+				break;
+			case "sellers":
+				$this->tool = "sellers";
+				break;
+			case "credits":
+				$this->tool = "credits";
+				break;
+			case "license":
+				$this->tool = "license";
+				break;
 			default:
 				$this->tool = "default";
 				break;
