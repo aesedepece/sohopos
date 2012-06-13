@@ -361,6 +361,10 @@ function topClients(qty){
 	return JSON.parse(clientData);
 }
 
+function drawerOpen(){
+	$.post("<?php echo$s['r']; ?>printer/drawerOpen");
+}
+
 function pad(object){
 	key = $(object).html();
 	if(key >= 0 && key <= 9){
