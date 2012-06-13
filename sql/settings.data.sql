@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 INSERT INTO `settings` (`key`, `value`) VALUES
 ('custDisPort', NULL),
-('printerPort', '/dev/usblp/0'),
+('printerPort', '/dev/usb/lp0'),
 ('r', '/sohopos/');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
