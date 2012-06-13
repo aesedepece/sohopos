@@ -40,7 +40,8 @@ $s = $_SESSION['s'];
 		form.pricesell = $("body#management > div#panel > form > fieldset > input#pricesell").val();
 		form.expiry = $("body#management > div#panel > form > fieldset > input#expiry").val();
 		$.post("<?php echo$s['r']; ?>sales/move", { move: form }, function(data) {
- 			 alert(data);
+ 			 alert("Operación realizada con éxito");
+ 			 window.location.reload();
 		});
 	}
 

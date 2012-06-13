@@ -30,10 +30,10 @@
 			</table>
 			<ul>
 				<li id="butpayment" onclick="pay();">Pago</li>
-				<li id="butprint">Imprimir</li>
-				<li id="butopendrawer">Abrir cajón</li>
+				<li id="butprint" onclick="ticketPrint();">Imprimir</li>
+				<li id="butopendrawer" onclick="drawerOpen();">Abrir cajón</li>
 				<li id="butclients" onclick="clientChange();">Clientes<span class="label"></span></li>
-				<li id="butdiscount">Descuentos</li>
+				<li id="butdiscount" onclick="discounts();">Descuentos</li>
 			</ul>
 		</section>
 	</section>
