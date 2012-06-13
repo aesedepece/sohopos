@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 12, 2012 at 08:22 PM
+-- Generation Time: Jun 14, 2012 at 12:49 AM
 -- Server version: 5.5.22
 -- PHP Version: 5.3.10-1ubuntu3.1
 
@@ -26,13 +26,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `cashposts`
 --
 
+DROP TABLE IF EXISTS `cashposts`;
 CREATE TABLE IF NOT EXISTS `cashposts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` decimal(4,2) NOT NULL,
-  `caption` varchar(30) NOT NULL,
+  `value` double(4,2) NOT NULL,
+  `caption` varchar(30) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `cashposts` (
 -- Table structure for table `categories`
 --
 
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -54,13 +56,14 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- Table structure for table `clients`
 --
 
+DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(12) NOT NULL,
   `surname` varchar(24) NOT NULL,
-  `default-discount_id` int(11) DEFAULT NULL,
+  `defaultdiscount_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `default-discount_id` (`default-discount_id`)
+  KEY `default-discount_id` (`defaultdiscount_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
@@ -69,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 -- Table structure for table `compositions`
 --
 
+DROP TABLE IF EXISTS `compositions`;
 CREATE TABLE IF NOT EXISTS `compositions` (
   `product_id_` int(11) NOT NULL,
   `ingredient_id` int(11) NOT NULL,
@@ -81,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `compositions` (
 -- Table structure for table `discounts`
 --
 
+DROP TABLE IF EXISTS `discounts`;
 CREATE TABLE IF NOT EXISTS `discounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `caption` varchar(24) NOT NULL,
@@ -94,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `discounts` (
 -- Table structure for table `distributors`
 --
 
+DROP TABLE IF EXISTS `distributors`;
 CREATE TABLE IF NOT EXISTS `distributors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -107,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `distributors` (
 -- Table structure for table `distributors_products`
 --
 
+DROP TABLE IF EXISTS `distributors_products`;
 CREATE TABLE IF NOT EXISTS `distributors_products` (
   `distributor_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -121,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `distributors_products` (
 -- Table structure for table `makes`
 --
 
+DROP TABLE IF EXISTS `makes`;
 CREATE TABLE IF NOT EXISTS `makes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -133,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `makes` (
 -- Table structure for table `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reference` varchar(32) NOT NULL,
@@ -157,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Table structure for table `products_tags`
 --
 
+DROP TABLE IF EXISTS `products_tags`;
 CREATE TABLE IF NOT EXISTS `products_tags` (
   `product_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
@@ -171,6 +181,7 @@ CREATE TABLE IF NOT EXISTS `products_tags` (
 -- Table structure for table `sales`
 --
 
+DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `startdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -180,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   PRIMARY KEY (`id`),
   KEY `seller_id` (`seller_id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
@@ -188,6 +199,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
 -- Table structure for table `sales_discounts`
 --
 
+DROP TABLE IF EXISTS `sales_discounts`;
 CREATE TABLE IF NOT EXISTS `sales_discounts` (
   `sale_id` int(11) NOT NULL,
   `discount_id` int(11) NOT NULL,
@@ -202,6 +214,7 @@ CREATE TABLE IF NOT EXISTS `sales_discounts` (
 -- Table structure for table `sellers`
 --
 
+DROP TABLE IF EXISTS `sellers`;
 CREATE TABLE IF NOT EXISTS `sellers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL,
@@ -218,9 +231,11 @@ CREATE TABLE IF NOT EXISTS `sellers` (
 -- Table structure for table `settings`
 --
 
+DROP TABLE IF EXISTS `settings`;
 CREATE TABLE IF NOT EXISTS `settings` (
-  `key` varchar(12) NOT NULL,
+  `key` varchar(24) NOT NULL,
   `value` text,
+  `comment` text,
   UNIQUE KEY `key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -230,6 +245,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Table structure for table `tags`
 --
 
+DROP TABLE IF EXISTS `tags`;
 CREATE TABLE IF NOT EXISTS `tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -242,6 +258,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- Table structure for table `taxes`
 --
 
+DROP TABLE IF EXISTS `taxes`;
 CREATE TABLE IF NOT EXISTS `taxes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -255,6 +272,7 @@ CREATE TABLE IF NOT EXISTS `taxes` (
 -- Table structure for table `units`
 --
 
+DROP TABLE IF EXISTS `units`;
 CREATE TABLE IF NOT EXISTS `units` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -265,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `units` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `distributor_id` (`distributor_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -273,6 +291,7 @@ CREATE TABLE IF NOT EXISTS `units` (
 -- Table structure for table `units_sales`
 --
 
+DROP TABLE IF EXISTS `units_sales`;
 CREATE TABLE IF NOT EXISTS `units_sales` (
   `unit_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
@@ -286,6 +305,7 @@ CREATE TABLE IF NOT EXISTS `units_sales` (
 --
 -- Stand-in structure for view `v_curUnits`
 --
+DROP VIEW IF EXISTS `v_curUnits`;
 CREATE TABLE IF NOT EXISTS `v_curUnits` (
 `id` int(11)
 ,`product_id` int(11)
@@ -297,8 +317,30 @@ CREATE TABLE IF NOT EXISTS `v_curUnits` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `v_soldByDay`
+--
+DROP VIEW IF EXISTS `v_soldByDay`;
+CREATE TABLE IF NOT EXISTS `v_soldByDay` (
+`day` date
+,`sold` double(19,2)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_soldByMonth`
+--
+DROP VIEW IF EXISTS `v_soldByMonth`;
+CREATE TABLE IF NOT EXISTS `v_soldByMonth` (
+`year` int(4)
+,`month` int(2)
+,`sold` double(19,2)
+);
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `v_stock`
 --
+DROP VIEW IF EXISTS `v_stock`;
 CREATE TABLE IF NOT EXISTS `v_stock` (
 `product_id` int(11)
 ,`reference` varchar(32)
@@ -311,6 +353,7 @@ CREATE TABLE IF NOT EXISTS `v_stock` (
 --
 -- Stand-in structure for view `v_topClients`
 --
+DROP VIEW IF EXISTS `v_topClients`;
 CREATE TABLE IF NOT EXISTS `v_topClients` (
 `numsales` bigint(21)
 ,`id` int(11)
@@ -329,6 +372,24 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VI
 -- --------------------------------------------------------
 
 --
+-- Structure for view `v_soldByDay`
+--
+DROP TABLE IF EXISTS `v_soldByDay`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VIEW `v_soldByDay` AS select cast(`cashposts`.`date` as date) AS `day`,sum(`cashposts`.`value`) AS `sold` from `cashposts` group by cast(`cashposts`.`date` as date);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_soldByMonth`
+--
+DROP TABLE IF EXISTS `v_soldByMonth`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VIEW `v_soldByMonth` AS select year(`cashposts`.`date`) AS `year`,month(`cashposts`.`date`) AS `month`,sum(`cashposts`.`value`) AS `sold` from `cashposts` group by year(`cashposts`.`date`),month(`cashposts`.`date`);
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_stock`
 --
 DROP TABLE IF EXISTS `v_stock`;
@@ -342,72 +403,24 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VI
 --
 DROP TABLE IF EXISTS `v_topClients`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`sohopos`@`localhost` SQL SECURITY DEFINER VIEW `v_topClients` AS select count(0) AS `numsales`,`sales`.`client_id` AS `id`,`clients`.`name` AS `name`,`clients`.`surname` AS `surname` from (`clients` join `sales`) group by `clients`.`id` having (`clients`.`id` = `sales`.`client_id`) order by count(0) desc;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_topClients` AS select count(0) AS `numsales`,`sales`.`client_id` AS `id`,`clients`.`name` AS `name`,`clients`.`surname` AS `surname` from (`clients` join `sales`) group by `clients`.`id` having (`clients`.`id` = `sales`.`client_id`) order by count(0) desc;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `categories`
---
-ALTER TABLE `categories`
-  ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
 -- Constraints for table `clients`
 --
 ALTER TABLE `clients`
-  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`default-discount_id`) REFERENCES `discounts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `distributors_products`
---
-ALTER TABLE `distributors_products`
-  ADD CONSTRAINT `distributors_products_ibfk_1` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`),
-  ADD CONSTRAINT `distributors_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_5` FOREIGN KEY (`make_id`) REFERENCES `makes` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `products_ibfk_6` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `products_ibfk_7` FOREIGN KEY (`tax_id`) REFERENCES `taxes` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `products_tags`
---
-ALTER TABLE `products_tags`
-  ADD CONSTRAINT `products_tags_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `products_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `sales`
---
-ALTER TABLE `sales`
-  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `sellers` (`id`);
-
---
--- Constraints for table `sales_discounts`
---
-ALTER TABLE `sales_discounts`
-  ADD CONSTRAINT `sales_discounts_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`),
-  ADD CONSTRAINT `sales_discounts_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`);
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`defaultdiscount_id`) REFERENCES `discounts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `units`
 --
 ALTER TABLE `units`
-  ADD CONSTRAINT `units_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `units_ibfk_2` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`);
-
---
--- Constraints for table `units_sales`
---
-ALTER TABLE `units_sales`
-  ADD CONSTRAINT `units_sales_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`),
-  ADD CONSTRAINT `units_sales_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`);
+  ADD CONSTRAINT `units_ibfk_2` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `units_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
