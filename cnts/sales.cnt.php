@@ -97,9 +97,10 @@ class Sales extends Cnt{
 			$sql = mysql_query("	SELECT id 
 						FROM v_curUnits 
 						WHERE product_id = '".$article['id']."'
-						ORDER BY expiry, indate ASC LIMIT '".$article['units']."'"
-			, $this->app->db)
-			if(mysql_num_rows($sql)=>$unit['units']){
+						ORDER BY expiry, indate ASC LIMIT ".$article['qty']
+			, $this->app->db);
+			if(mysql_num_rows($sql)==$article['qty']){
+				echo "rows";
 				while($unit = mysql_fetch_assoc($sql)){
 					mysql_query("	INSERT INTO units_sales (unit_id, sale_id)
 							VALUES ('".$unit['id']."', '".$id."')"
