@@ -33,7 +33,7 @@
 				<li id="butprint" onclick="ticketPrint();">Imprimir</li>
 				<li id="butopendrawer" onclick="drawerOpen();">Abrir cajón</li>
 				<li id="butclients" onclick="clientChange();">Clientes<span class="label"></span></li>
-				<li id="butdiscount" onclick="discounts();">Descuentos</li>
+				<li id="butdiscount" onclick="discountChange();">Descuentos<span class="label"></span></li>
 			</ul>
 		</section>
 	</section>

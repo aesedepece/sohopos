@@ -357,6 +357,32 @@ body#sales > section#right > section#clients > div > section#topClients > ul > l
 	border: 1px solid #666;
 	cursor: pointer;
 }
+body#sales > section#right > section#discounts{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #333;
+	background-image: url("../../../res/img/texture.png");
+}
+body#sales > section#right > section#discounts > h1{
+	display: block;
+	margin: 20px auto;
+	font-size: 1.5em;
+
+	text-align: center;
+}
+body#sales > section#right > section#discounts > ul{
+	margin: 0 auto;
+	padding: 30px;
+	background-color: #444;
+	text-align: center;
+	border-top: 1px solid #4D4D4D;
+	border-bottom: 1px solid #1A1A1A;
+	border-radius: 2px;
+	background-image: url("../../../res/img/texture.png");
+}
 header#topbar div#context div#ticketinfo{
 	height: 30px;
 	padding: 5px 10px;

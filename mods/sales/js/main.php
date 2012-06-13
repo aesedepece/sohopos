@@ -361,6 +361,17 @@ function topClients(qty){
 	return JSON.parse(clientData);
 }
 
+function discountChange(discount){
+	 if(typeof discount == "undefined") {
+		if(tool=="discounts")window.location = "<?php echo$s['r']; ?>sales";
+		else window.location = "<?php echo$s['r']; ?>sales/discounts";
+	 }else{
+	 	sales[curSale].discount = discount;
+	 	salesSave();
+	 	cdiscountChange();
+	 }
+}
+
 function drawerOpen(){
 	$.post("<?php echo$s['r']; ?>printer/drawerOpen");
 }
