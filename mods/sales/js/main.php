@@ -5,7 +5,7 @@ $s = $_SESSION['s'];
 var sales = new Array();
 var curSale;
 var selItem;
-var ib = 0;
+var ib = "";
 var editing = false;
 var curCategory = 1;
 var tool = "products";
@@ -511,7 +511,7 @@ $(document).ready(function(){
 					editing.blur();
 				}else{
 					itemAdd(productSearch('code', ib));
-					ib = 0;
+					ib = "";
 					saleShow(curSale);
 				}
 				break;
