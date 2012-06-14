@@ -59,7 +59,10 @@ function saleNew(){
 }
 
 function saleEnd(){
-
+	if(sales[curSale].payMethod="cash")drawerOpen();
+	$.post("<?php echo$s['r']; ?>sales/end", {sale: sales[curSale]}, function(data){alert(data);});
+	saleDel(curSale);
+	window.location = "<?php echo$s['r']; ?>sales";
 }
 
 function saleDel(sale){

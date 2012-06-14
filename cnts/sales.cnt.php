@@ -34,25 +34,33 @@ class Sales extends Cnt{
 		}
 	}
 
-	public function saleEnd(){
-		$this->close($_POST['id'], $_POST['articles']);
+	public function end(){
+		$cash = new Cash($this->app);
+		$sale = $_POST['sale'];
+		$close = $this->close($sale['id'], $sale['items'], $sale['client'], $sale['discount' ]);
+		if($close){
+			echo $close;
+		}else{
+			$cash->add(($sale['total']), "SALE #".$sale['id']);
+			echo "Venta cerrada";
+		}
 	}
 
 	public function getFromDB(){
-		$sales = null;
-		$q = @mysql_query("	SELECT * 
-					FROM sales 
-					WHERE enddate IS NULL
-					AND seller_id = '".$_SESSION['uid']."'
-					ORDER BY id ASC");
+		$q = mysql_query("SELECT * FROM sales WHERE enddate IS NULL AND seller_id = '".$_SESSION['uid']."' ORDER BY id ASC", $this->app->db);
 		if(mysql_num_rows($q)){
 			$i = 0;
 			while($sale = mysql_fetch_assoc($q)){
 				$sales[$i] = $sale;
 				$i++;
 			}
+
 		}
 		echo json_encode($sales);
+	}
+	
+	public function foo(){
+		echo "bar";
 	}
 	
 	public function move(){
@@ -98,27 +106,25 @@ class Sales extends Cnt{
 		}
 	}
 	
-	private function close($id, $articles){
-		mysql_query("	UPDATE sales 
-				SET enddate = CURRENT_TIMESTAMP 
-				WHERE id = '".$id."'"
-		, $this->app->db);
+	private function close($id, $articles, $client = NULL, $discount = NULL){
+		mysql_query("UPDATE sales SET enddate = CURRENT_TIMESTAMP WHERE id = '".$id."'", $this->app->db);
+		if($client)mysql_query("UPDATE sales SET client_id = '".$client."' WHERE id = '".$id."'", $this->app->db);
+		if($discount)mysql_query("INSERT INTO sales_discounts (sale_id, discount_id)VALUES ('".$id."', '".$discount."')", $this->app->db);
 		foreach($articles as $article){
 			$sql = mysql_query("	SELECT id 
-						FROM v_curUnits 
-						WHERE product_id = '".$article['id']."'
-						ORDER BY expiry, indate ASC LIMIT ".$article['qty']
+									FROM v_curUnits 
+									WHERE product_id = '".$article['id']."'
+									ORDER BY expiry, indate ASC LIMIT ".$article['qty']
 			, $this->app->db);
 			if(mysql_num_rows($sql)==$article['qty']){
-				echo "rows";
 				while($unit = mysql_fetch_assoc($sql)){
 					mysql_query("	INSERT INTO units_sales (unit_id, sale_id)
-							VALUES ('".$unit['id']."', '".$id."')"
+									VALUES ('".$unit['id']."', '".$id."')"
 					, $this->app->db);
 				}
-			}
+			}else $err = "No hay unidades suficientes del producto";
 		}
-		
+		return $err;
 	}
 
 }

@@ -470,7 +470,9 @@ body#sales > section#right > section#payment > div#cashTool > ul#banknotes > li:
 }
 body#sales > section#right > section#payment > a#ok{
 	display: none;
-	margin: 0 10px;
+	position: absolute;
+	left: 30%;
+	right: 30%;
 	padding: 10px 20px;
 	background-color: #690;
 	color: #FFF;
