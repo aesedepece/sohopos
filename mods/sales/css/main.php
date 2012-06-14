@@ -370,7 +370,6 @@ body#sales > section#right > section#discounts > h1{
 	display: block;
 	margin: 20px auto;
 	font-size: 1.5em;
-
 	text-align: center;
 }
 body#sales > section#right > section#discounts > ul{
@@ -396,6 +395,44 @@ body#sales > section#right > section#discounts > ul > li{
 	cursor: pointer;
 }
 body#sales > section#right > section#discounts > ul > li.current{
+	background-color: #680;
+}
+body#sales > section#right > section#payment{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #333;
+	background-image: url("../../../res/img/texture.png");
+}
+body#sales > section#right > section#payment > h1{
+	display: block;
+	margin: 20px auto;
+	font-size: 1.5em;
+	text-align: center;
+}
+body#sales > section#right > section#payment > span#total{
+	font-size: 4em;
+	display: block;
+	text-align: center;
+}
+body#sales > section#right > section#payment > ul#payMethods{
+	position: absolute;
+	left: 100px;
+	right: 100px;
+	border-top: 1px solid #555;
+	border-bottom: 1px solid #222;
+	border-radius: 2px;
+	background-color: #444;
+	background-image: url("../../../res/img/texture.png");
+}
+body#sales > section#right > section#payment > ul#payMethods > li{
+	float: left;
+	padding: 10px;
+	list-style-type: none;
+}
+body#sales > section#right > section#payment > ul#payMethods > li.current{
 	background-color: #680;
 }
 header#topbar div#context div#ticketinfo{
