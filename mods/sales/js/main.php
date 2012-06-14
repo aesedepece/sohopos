@@ -41,6 +41,7 @@ function Sale(saledata){
 	this.ttax = 0;
 	this.total = 0;
 	this.client = 0;
+	this.payed = 0;
 }
 
 function saleNew(){

@@ -407,33 +407,80 @@ body#sales > section#right > section#payment{
 	background-image: url("../../../res/img/texture.png");
 }
 body#sales > section#right > section#payment > h1{
-	display: block;
 	margin: 20px auto;
 	font-size: 1.5em;
 	text-align: center;
 }
-body#sales > section#right > section#payment > span#total{
+body#sales > section#right > section#payment > table#top td{
+	padding-right: 30px;
+}
+body#sales > section#right > section#payment > table#top td#total{
 	font-size: 4em;
 	display: block;
-	text-align: center;
+	margin-left: 10px;
+}
+body#sales > section#right > section#payment > table#top td > span{
+	font-size: 1.5em;
 }
 body#sales > section#right > section#payment > ul#payMethods{
-	position: absolute;
-	left: 100px;
-	right: 100px;
+	height: 40px;
 	border-top: 1px solid #555;
 	border-bottom: 1px solid #222;
 	border-radius: 2px;
 	background-color: #444;
 	background-image: url("../../../res/img/texture.png");
+	margin-bottom: 20px;
 }
 body#sales > section#right > section#payment > ul#payMethods > li{
+	display: inline;
 	float: left;
 	padding: 10px;
 	list-style-type: none;
 }
 body#sales > section#right > section#payment > ul#payMethods > li.current{
-	background-color: #680;
+	background-color: #690;
+}
+body#sales > section#right > section#payment > div#cashTool{
+	display: none;
+	margin-bottom: 30px;
+}
+body#sales > section#right > section#payment > div#cashTool > ul#banknotes{
+	border: 2px solid #222;
+	outline: 1px solid #555;
+	margin: 0 auto;
+	width: 500px;
+	height: 300px;
+}
+body#sales > section#right > section#payment > div#cashTool > ul#banknotes > li{
+	display: block;
+	float: left;
+	width: 100px;
+	height: 60px;
+	font-size: 1.2em;
+	text-align: center;
+	padding-top: 40px;
+}
+body#sales > section#right > section#payment > div#cashTool > ul#banknotes > li:hover{
+	background-color: #666;
+	cursor: pointer;
+	background-image: url("../../../res/img/texture.png");
+}
+body#sales > section#right > section#payment > a#ok{
+	display: none;
+	margin: 0 10px;
+	padding: 10px 20px;
+	background-color: #690;
+	color: #FFF;
+	border-radius: 2px;
+	border-top: 1px solid #9C0;
+	border-bottom: 1px solid  #360;
+	font-size: 0.8em;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+}
+body#sales > section#right > section#payment > a#ok > img{
+	margin-bottom: -3px;
 }
 header#topbar div#context div#ticketinfo{
 	height: 30px;
