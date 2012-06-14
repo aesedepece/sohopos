@@ -46,6 +46,7 @@ $(document).ready(function(){
 	});
 	$("body#sales > section#right > section#payment > div#cashTool > ul#banknotes > li#exact").click(function(){
 		this.id = sales[curSale].total*100;
+		sales[curSale].payed = 0;
 		bnPay(this);
 	});
 	$("body#sales > section#right > section#payment > table#top td#total").html(sales[curSale].total.toFixed(2) + "€");

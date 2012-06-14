@@ -437,6 +437,9 @@ body#sales > section#right > section#payment > ul#payMethods > li{
 	padding: 10px;
 	list-style-type: none;
 }
+body#sales > section#right > section#payment > ul#payMethods > li:hover{
+	cursor: pointer;
+}
 body#sales > section#right > section#payment > ul#payMethods > li.current{
 	background-color: #690;
 }
