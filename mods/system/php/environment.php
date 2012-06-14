@@ -3,6 +3,7 @@ session_start();
 $s = $_SESSION['s'];
 ?>
 <script type="text/javascript">
+	tool = "environment";
 	function save(){
 		$("body#system > div#panel > form > fieldset > input").each(function(){
 			$.post("<?php echo$s['r']; ?>settings/update", {key: this.id, value: this.value});

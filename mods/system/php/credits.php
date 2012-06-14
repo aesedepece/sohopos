@@ -1,3 +1,6 @@
+<script type="text/javascript">
+	tool = "credits";
+</script>
 <p>Copyright (C) 2012, Adán Sánchez de Pedro Crespo. </p>
 <p>This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

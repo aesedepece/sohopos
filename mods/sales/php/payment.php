@@ -10,7 +10,7 @@ function payMethodChange(method){
 		$("body#sales > section#right > section#payment > div#cashTool").hide();
 	}
 	$("body#sales > section#right > section#payment > ul#payMethods > li#" + sales[curSale].payMethod).addClass("current").siblings().removeClass("current");
-	if(sales[curSale].payed>=sales[curSale].total || method!="cash"){
+	if(sales[curSale].total>0 && (sales[curSale].payed>=sales[curSale].total || method!="cash")){
 		$("body#sales > section#right > section#payment > a#ok").show();
 	}else{
 		$("body#sales > section#right > section#payment > a#ok").hide();
@@ -23,7 +23,7 @@ function bnPay(button){
 	sales[curSale].payed += (button.id/100);
 	$("body#sales > section#right > section#payment > table#top td#payed > span").html(sales[curSale].payed.toFixed(2) + "€");
 	$("body#sales > section#right > section#payment > table#top td#change > span").html((sales[curSale].payed-sales[curSale].total).toFixed(2) + "€");
-	if(sales[curSale].payed>=sales[curSale].total || sales[curSale].payMethod!="cash"){
+	if(sales[curSale].total>0 && (sales[curSale].payed>=sales[curSale].total || sales[curSale].payMethod!="cash")){
 		$("body#sales > section#right > section#payment > a#ok").show();
 	}else{
 		$("body#sales > section#right > section#payment > a#ok").hide();
@@ -34,7 +34,7 @@ function bnPay(button){
 $(document).ready(function(){
 	if(!sales[curSale].payMethod)payMethodChange("cash");
 	if(sales[curSale].payMethod=="cash")$("body#sales > section#right > section#payment > div#cashTool").show();
-	if(sales[curSale].payed>=sales[curSale].total || sales[curSale].payMethod!="cash"){
+	if(sales[curSale].total>0 && (sales[curSale].payed>=sales[curSale].total || sales[curSale].payMethod!="cash")){
 		$("body#sales > section#right > section#payment > a#ok").show();
 	}else{
 		$("body#sales > section#right > section#payment > a#ok").hide();

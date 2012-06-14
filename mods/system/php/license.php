@@ -1,3 +1,6 @@
+<script type="text/javascript">
+	tool = "license";
+</script>
 <a id="SEC1">GNU GENERAL PUBLIC LICENSE</a></h3>
 <p>
 Version 2, June 1991
