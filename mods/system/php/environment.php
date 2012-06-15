@@ -1,6 +1,10 @@
 <?php
 session_start();
 $s = $_SESSION['s'];
+
+if($_SESSION['uid']!=1){
+	echo "Sólo el usuario Admin puede usar esta herramienta.";
+}else{
 ?>
 <script type="text/javascript">
 	tool = "environment";
@@ -28,3 +32,5 @@ $s = $_SESSION['s'];
 	}
 ?>
 </form>
+
+<?php } ?>
