@@ -26,7 +26,7 @@ class Sales extends Cnt{
 				SET startdate = CURRENT_TIMESTAMP 
 				WHERE id = '".$_POST['id']."'", $this->app->db);
 		if(mysql_affected_rows($this->app->db)){
-			$sale['startdate'] = date("m/d/y \A \L\A\S G:i");
+			$sale['startdate'] = date("d/m/y \A \L\A\S G:i");
 			$sale['id'] = $_POST['id'];
 			echo json_encode($sale);
 		}else{
