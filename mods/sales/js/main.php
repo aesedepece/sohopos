@@ -416,6 +416,10 @@ function drawerOpen(){
 	$.post("<?php echo$s['r']; ?>printer/drawerOpen");
 }
 
+function ticketPrint(){
+	$.post("<?php echo$s['r']; ?>printer/ticketPrint", {sale: sales[curSale]});
+}
+
 function pad(object){
 	key = $(object).html();
 	if(key >= 0 && key <= 9){
